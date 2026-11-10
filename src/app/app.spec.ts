@@ -15,6 +15,9 @@ describe('Page navigation', () => {
     const root = fixture.nativeElement as HTMLElement;
     expect(root.querySelector('h1')?.textContent).toContain('Tetiana Melnyk');
     expect(root.querySelector('a[download]')?.getAttribute('href')).toBe('tetiana-melnyk-cv.pdf');
+    const printLink = root.querySelector<HTMLAnchorElement>('.cv-print-link');
+    expect(printLink?.getAttribute('href')).toBe('tetiana-melnyk-cv.pdf');
+    expect(printLink?.target).toBe('_blank');
     expect(root.querySelector('app-bug-game')).toBeNull();
     expect(root.querySelector('.mission-grid')).toBeNull();
     expect(root.querySelector('nav a[aria-current="page"]')?.textContent).toBe('My CV');

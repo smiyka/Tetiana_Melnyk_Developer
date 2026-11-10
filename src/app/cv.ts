@@ -4,5 +4,4 @@ import { PROFILE } from './profile';
 @Component({ selector: 'app-cv', templateUrl: './cv.html' })
 export class Cv {
   readonly profile = PROFILE;
-  print(): void { window.print(); }
 }

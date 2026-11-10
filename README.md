@@ -32,7 +32,7 @@ The site is deployed automatically to GitHub Pages after every push to `main`, o
 | [Bug Tac Toe](https://smiyka.github.io/skillquest/#/games/tic-tac-toe) | Green versus red bugs in tic-tac-toe |
 | [Missions](https://smiyka.github.io/skillquest/#/missions) | Three frontend challenges with persistent XP |
 
-The CV page includes a printable view and a [downloadable CV](https://smiyka.github.io/skillquest/tetiana-melnyk-cv.pdf) containing only the CV page from the supplied document, without the cover letter.
+The CV page includes a [downloadable CV](https://smiyka.github.io/skillquest/tetiana-melnyk-cv.pdf) containing only the CV page from the supplied document, without the cover letter. **Print CV (PDF)** opens that PDF in a new tab; use the PDF viewer’s print button to print the document.
 
 Pages use lazy-loaded Angular routes and hash-based URLs so direct links and refresh work on static GitHub Pages hosting. The earlier `#bug-blaster` URL redirects to the dedicated game page.
 
