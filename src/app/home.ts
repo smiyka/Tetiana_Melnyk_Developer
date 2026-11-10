@@ -13,7 +13,7 @@ import { RouterLink } from '@angular/router';
       <div class="destination-grid">
         <a class="destination" routerLink="/cv"><span class="destination-icon">&lt;/&gt;</span><span class="eyebrow">THE PERSON</span><h3>My CV</h3><p>Experience, skills, education and ways to get in touch. Just the professional story.</p><span class="card-link">Meet Tetiana ↗</span></a>
         <a class="destination" routerLink="/lab"><span class="destination-icon">⌕</span><span class="eyebrow">HOW I BUILD</span><h3>Developer Lab</h3><p>Guided examples of debugging, reactive search and accessible form validation. Try the behavior and understand the approach.</p><span class="card-link">Explore the examples ↗</span></a>
-        <a class="destination" routerLink="/games"><span class="destination-icon">✦</span><span class="eyebrow">A LITTLE PLAY</span><h3>Games</h3><p>Bug Blaster for quick reactions. Bug Tac Toe for a little strategy. Small side projects, made to play.</p><span class="card-link">Choose a game ↗</span></a>
+        <a class="destination" routerLink="/games"><span class="destination-icon">✦</span><span class="eyebrow">A LITTLE PLAY</span><h3>Games</h3><p>Grow a hungry Bug Snake, test your reactions with Bug Blaster or plan your next move in Bug Tac Toe.</p><span class="card-link">Choose a game ↗</span></a>
       </div>
     </section></div>`,
 })

@@ -43,6 +43,12 @@ Completion is saved locally, without levels or XP. The reset action clears examp
 
 ## Games
 
+### Bug Snake
+
+Grow a bug by eating pink flowers. Each snack adds a segment; hitting a wall or the body ends the run. The garden is 20 × 20 cells, with a steady pace and no countdown. Length, survival time and a locally saved best length appear above the board.
+
+Steer with the mouse, arrow keys or WASD while the board is focused. Touch players can drag on the board or use the direction buttons. P, Space or Escape pauses; changing tabs or losing window focus also pauses. Leaving the game clears its timer.
+
 ### Bug Blaster
 
 A 30-second bug-squashing game with three increasingly fast waves. Click or tap bugs before they escape, build a combo for up to a ×4 multiplier and protect five stability bars. Focus the board and use **1–9**, or Tab and Enter. **P** or **Escape** pauses the game. It also pauses when the tab is hidden or the window loses focus.
@@ -81,6 +87,8 @@ The [CI workflow](.github/workflows/ci.yml) tests every push and pull request an
 Pages use lazy-loaded Angular routes and hash URLs so direct links and refresh work on static hosting. The earlier `#bug-blaster` URL redirects to its game page.
 
 ## Implementation
+
+The CV includes a live Codewars card for [smiyka](https://www.codewars.com/users/smiyka). It requests `codeChallenges.totalCompleted` from the public Codewars API on opening, every minute while visible, and on manual refresh. Loading and service failures have explicit states; no kata count is hardcoded. Requests time out after eight seconds and are cancelled when leaving the CV.
 
 - Standalone Angular components, strict TypeScript, Signals, computed state and SCSS.
 - Reactive Forms with field descriptions, error messages and invalid-state attributes.

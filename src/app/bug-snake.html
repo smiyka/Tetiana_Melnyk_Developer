@@ -1,0 +1,30 @@
+<div class="snake-page">
+  <a class="back-link" routerLink="/games">← All games</a>
+  <header class="heading"><p class="eyebrow">THE ARCADE / AN APPETITE FOR GROWTH</p><h1>Little bug.<br /><span>Big ambitions.</span></h1><p>Meet Bug Snake. Snack, stretch and survive for as long as you can.</p></header>
+  <div class="snake-layout">
+    <section class="cabinet" aria-label="Bug Snake game">
+      <div class="hud"><div><span>LENGTH</span><strong>{{ body().length }}<small> segments</small></strong></div><div><span>SURVIVED</span><strong>{{ clock() }}</strong></div><div><span>BEST LENGTH</span><strong>{{ best() }}</strong></div></div>
+      <div #board class="garden" tabindex="0" role="region" aria-label="Bug Snake board. Use arrow keys or WASD to steer, P or Space to pause." aria-describedby="snake-controls" (keydown)="keyboard($event)" (pointermove)="point($event)" (pointerdown)="point($event)">
+        @if (food(); as snack) { <span class="snack" [style.left.%]="snack.x * 5" [style.top.%]="snack.y * 5" aria-hidden="true">✿</span> }
+        @for (segment of body(); track $index) {
+          <span class="segment" [class.head]="$first" [class.tail]="$last" [style.left.%]="segment.x * 5" [style.top.%]="segment.y * 5" aria-hidden="true">
+            @if ($first) { <app-bug-token [style.transform]="'rotate(' + rotation() + 'deg)'" /> }
+          </span>
+        }
+        @if (phase() !== 'playing') {
+          <div class="overlay"><span class="overlay-bug" aria-hidden="true"><app-bug-token /></span><p class="eyebrow">{{ phase() === 'paused' ? 'PAUSED' : phase() === 'over' ? 'GAME OVER' : phase() === 'won' ? 'YOU DID IT' : 'BUG SNAKE' }}</p><h2>{{ message() }}</h2>
+            @if (phase() === 'over' || phase() === 'won') { <p>{{ body().length }} segments · {{ clock() }} survived</p> }
+            @else { <p>A snack adds a segment. Walls and your own tail end the adventure.</p> }
+            @if (phase() === 'paused') { <button class="primary" (click)="togglePause()">Keep growing →</button> }
+            @else { <button class="primary" (click)="start()">{{ phase() === 'ready' ? 'Let’s grow →' : 'Grow again ↗' }}</button> }
+          </div>
+        }
+      </div>
+      <div class="board-footer"><span role="status" aria-live="polite">{{ message() }}</span><button class="secondary" [disabled]="phase() !== 'playing' && phase() !== 'paused'" (click)="togglePause()">{{ phase() === 'paused' ? 'Resume' : 'Pause' }}</button></div>
+    </section>
+    <aside class="guide"><p class="eyebrow">SMALL BUG. LONG JOURNEY.</p><h2>One more bite.<br />One longer bug.</h2><p>Your bug grows a new body segment with every pink flower it eats. Aim for your longest bug and your longest run.</p><ol><li><strong>Follow your appetite.</strong><span>Find the pink flower. Every snack adds one segment.</span></li><li><strong>Leave yourself room.</strong><span>Avoid the edges and your own body. You cannot reverse into your neck.</span></li><li><strong>Stay a little longer.</strong><span>No countdown. A steady pace, a growing challenge and a personal best saved on this device.</span></li></ol>
+      <div id="snake-controls" class="controls"><p class="eyebrow">HOW TO STEER</p><p>Move the mouse toward the direction you want to go, or focus the board and use <kbd>↑</kbd> <kbd>←</kbd> <kbd>↓</kbd> <kbd>→</kbd> / WASD. On touch screens, drag on the board or use the buttons below.</p><p><kbd>P</kbd>, <kbd>Space</kbd> or <kbd>Esc</kbd> pauses. Switching tabs pauses automatically.</p></div>
+      <div class="dpad" role="group" aria-label="Steering controls"><button class="up" aria-label="Turn up" (click)="turn('up')">↑</button><button class="left" aria-label="Turn left" (click)="turn('left')">←</button><button class="down" aria-label="Turn down" (click)="turn('down')">↓</button><button class="right" aria-label="Turn right" (click)="turn('right')">→</button></div>
+    </aside>
+  </div>
+</div>
