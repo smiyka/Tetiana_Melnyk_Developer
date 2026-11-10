@@ -3,27 +3,27 @@ import { computed, Injectable, signal } from '@angular/core';
 export const MISSIONS = [
   {
     id: 'logic',
-    title: 'Caccia al bug',
-    skill: 'TypeScript · Logica',
+    title: 'Bug hunt',
+    skill: 'TypeScript · Logic',
     xp: 100,
     icon: '</>',
-    description: 'Un contatore ha perso la strada. Trova la correzione.',
+    description: 'A counter has lost its way. Find the fix.',
   },
   {
     id: 'search',
-    title: 'Radar delle skill',
-    skill: 'Angular · Stato reattivo',
+    title: 'Skill radar',
+    skill: 'Angular · Reactive state',
     xp: 150,
     icon: '⌕',
-    description: 'Esplora il catalogo e rintraccia la skill nascosta.',
+    description: 'Explore the catalog and track down the hidden skill.',
   },
   {
     id: 'form',
-    title: 'Pronti al lancio',
-    skill: 'Form · Validazione',
+    title: 'Ready for launch',
+    skill: 'Forms · Validation',
     xp: 200,
     icon: '↗',
-    description: 'Prepara una missione con dati validi e inviala.',
+    description: 'Prepare a mission with valid data and launch it.',
   },
 ] as const;
 export type MissionId = (typeof MISSIONS)[number]['id'];

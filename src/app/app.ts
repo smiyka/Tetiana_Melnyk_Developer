@@ -14,10 +14,10 @@ export class App {
   readonly active = signal<MissionId>('logic');
   readonly feedback = signal('');
   readonly query = signal('');
-  readonly skills = ['Angular', 'TypeScript', 'Accessibilità', 'CSS', 'Testing', 'RxJS'];
+  readonly skills = ['Angular', 'TypeScript', 'Accessibility', 'CSS', 'Testing', 'RxJS'];
   readonly filteredSkills = computed(() =>
     this.skills.filter((s) =>
-      s.toLocaleLowerCase('it').includes(this.query().trim().toLocaleLowerCase('it')),
+      s.toLocaleLowerCase('en').includes(this.query().trim().toLocaleLowerCase('en')),
     ),
   );
   readonly launchForm = new FormGroup({
@@ -43,30 +43,30 @@ export class App {
   solve(correct: boolean): void {
     if (correct) {
       this.progress.complete('logic');
-      this.feedback.set('Bug risolto! +100 XP. Ogni missione assegna punti una sola volta.');
+      this.feedback.set('Bug fixed! +100 XP. Each mission awards points only once.');
     } else
       this.feedback.set(
-        'Quasi! Il contatore deve aumentare di uno, conservando il valore precedente.',
+        'Almost! The counter needs to increase by one, keeping its previous value.',
       );
   }
   discover(skill: string): void {
     if (skill === 'RxJS' && this.query().trim()) {
       this.progress.complete('search');
-      this.feedback.set('RxJS trovato con il filtro! +150 XP.');
-    } else this.feedback.set('Usa il campo di ricerca per trovare e selezionare RxJS.');
+      this.feedback.set('You found RxJS using the filter! +150 XP.');
+    } else this.feedback.set('Use the search field to find and select RxJS.');
   }
   launch(): void {
     this.launchForm.markAllAsTouched();
     if (this.launchForm.invalid) {
-      this.feedback.set('Controlla i campi evidenziati prima del lancio.');
+      this.feedback.set('Check the highlighted fields before launch.');
       return;
     }
     this.progress.complete('form');
-    this.feedback.set('Missione lanciata! +200 XP. Questa è una demo: nessun dato viene inviato.');
+    this.feedback.set('Mission launched! +200 XP. This is a demo: no data is sent.');
     this.launchForm.reset();
   }
   reset(): void {
     this.progress.reset();
-    this.feedback.set('Nuova partita iniziata. Buona esplorazione!');
+    this.feedback.set('New game started. Happy exploring!');
   }
 }

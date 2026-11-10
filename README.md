@@ -1,67 +1,67 @@
 # SkillQuest
 
-Un portfolio giocabile costruito con Angular: tre missioni interattive per esplorare logica, stato reattivo e validazione dei form.
+A playable Angular portfolio: three interactive missions exploring logic, reactive state and form validation.
 
-## Demo online
+## Live demo
 
-**[Apri SkillQuest](https://smiyka.github.io/skillquest/)**
+**[Open SkillQuest](https://smiyka.github.io/skillquest/)**
 
-Il sito viene pubblicato automaticamente su GitHub Pages dopo ogni push su `main`, se test e build passano.
+The site is deployed automatically to GitHub Pages after every push to `main`, once tests and the build pass.
 
-## Avvio locale
+## Local development
 
-Richiede Node.js 22.12 o successivo della serie 22 e npm.
+Requires Node.js 22.12 or later in the 22.x series and npm.
 
 ```sh
 npm ci
 npm start
 ```
 
-Apri http://localhost:4200.
+Open http://localhost:4200.
 
-## Comandi
+## Commands
 
 ```sh
 npm run build
 npm test -- --watch=false
 ```
 
-La build statica viene generata in `dist/skillquest/browser`.
+The static build is generated in `dist/skillquest/browser`.
 
-Per generare la build con il percorso di GitHub Pages:
+To build with the GitHub Pages base path:
 
 ```sh
 npm run build -- --base-href /skillquest/
 ```
 
-## Deploy
+## Deployment
 
-Il workflow [CI](.github/workflows/ci.yml) verifica ogni push e pull request e pubblica su GitHub Pages solo dal branch `main`.
-Nelle impostazioni del repository, **Settings → Pages → Build and deployment → Source** deve essere impostato su **GitHub Actions**.
-Lo stato della pubblicazione è visibile nella [scheda Actions](https://github.com/smiyka/skillquest/actions).
+The [CI workflow](.github/workflows/ci.yml) checks every push and pull request and deploys to GitHub Pages only from `main`.
+In the repository settings, **Settings → Pages → Build and deployment → Source** must be set to **GitHub Actions**.
+Track deployment status in the [Actions tab](https://github.com/smiyka/skillquest/actions).
 
-## Le missioni
+## Missions
 
-| Missione | Esperienza | Ricompensa |
+| Mission | Experience | Reward |
 | --- | --- | --- |
-| Caccia al bug | Correggere un incremento TypeScript | 100 XP |
-| Radar delle skill | Filtrare il catalogo e trovare RxJS | 150 XP |
-| Pronti al lancio | Compilare un form con dati validi | 200 XP |
+| Bug hunt | Fix a TypeScript increment | 100 XP |
+| Skill radar | Filter the catalog and find RxJS | 150 XP |
+| Ready for launch | Complete a form with valid data | 200 XP |
 
-Ogni ricompensa viene assegnata una volta sola. I progressi sono salvati in localStorage e possono essere azzerati con **Ricomincia**. Se lo storage non è disponibile, il gioco continua in memoria. I campi del form sono dimostrativi: nessun invio a un server e nessun salvataggio dei dati personali.
+Each reward is granted only once. Progress is saved in localStorage and can be reset with **Start again**. If storage is unavailable, the game continues in memory. Form fields are for demonstration only: no data is sent to a server and no personal data is saved.
 
-## Scelte tecniche
+## Technical choices
 
-- Componenti standalone Angular, TypeScript strict e SCSS.
-- Signals e computed per stato, filtri, livello e punti.
-- Servizio `Progress` separato dalla UI con validazione dei dati persistiti.
-- Reactive Forms con messaggi di errore accessibili.
-- Layout responsive, navigazione da tastiera, feedback live e supporto a movimento ridotto.
-- Test per premi duplicati, dati corrotti, validazione e interazione tra missioni.
-- CI GitHub Actions con test e build a ogni push e pull request.
+- Standalone Angular components, strict TypeScript and SCSS.
+- Signals and computed values for state, filters, levels and points.
+- A `Progress` service separated from the UI, with validation of persisted data.
+- Reactive Forms with accessible error messages.
+- Responsive layout, keyboard navigation, live feedback and reduced motion support.
+- Tests covering duplicate rewards, corrupt data, validation and mission interactions.
+- GitHub Actions CI running tests and a build on every push and pull request.
 
-## Personalizzazione
+## Customization
 
-Le missioni sono definite in `src/app/progress.ts`; i contenuti si trovano in `src/app/app.html`. Questa prima versione contiene esperienze dimostrative, senza attribuire competenze o progetti personali non ancora forniti.
+Missions are defined in `src/app/progress.ts`; page content lives in `src/app/app.html`. This initial version contains demo experiences, without claiming personal skills or projects that have not been provided yet.
 
-Prossimi passi: schede dei progetti reali, profilo personale e nuove missioni.
+Next steps: real project cards, a personal profile and new missions.

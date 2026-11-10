@@ -1,49 +1,49 @@
-<a class="skip-link" href="#missions">Vai alle missioni</a>
+<a class="skip-link" href="#missions">Skip to missions</a>
 <header class="topbar">
   <a class="brand" href="#"
     ><span class="brand-mark" aria-hidden="true">S▰</span> SkillQuest<span class="version"
       >/ v0.1</span
     ></a
   >
-  <nav aria-label="Navigazione principale">
-    <a href="#missions">Missioni</a><a href="#project">Il progetto</a
+  <nav aria-label="Main navigation">
+    <a href="#missions">Missions</a><a href="#project">The project</a
     ><a class="source-link" href="https://github.com/smiyka/skillquest">GitHub ↗</a>
   </nav>
 </header>
 <main>
   <section class="hero" aria-labelledby="hero-title">
     <div class="hero-copy">
-      <p class="eyebrow"><span class="status-dot"></span> PORTFOLIO INTERATTIVO · ANGULAR</p>
-      <h1 id="hero-title">Le skill si vedono.<br /><span>Giocando.</span></h1>
+      <p class="eyebrow"><span class="status-dot"></span> INTERACTIVE PORTFOLIO · ANGULAR</p>
+      <h1 id="hero-title">See skills in action.<br /><span>Through play.</span></h1>
       <p class="intro">
-        Tre piccole sfide, un percorso da esplorare. Entra nel laboratorio, risolvi le missioni e
-        scopri come prende forma un’interfaccia.
+        Three small challenges, one path to explore. Step into the lab, complete the missions and
+        discover how an interface takes shape.
       </p>
-      <a class="button primary" href="#missions">Inizia la quest <span>↘</span></a
-      ><span class="hero-note">Nessun account. Solo curiosità.</span>
+      <a class="button primary" href="#missions">Start the quest <span>↘</span></a
+      ><span class="hero-note">No account. Just curiosity.</span>
     </div>
-    <aside class="player-card" aria-label="I tuoi progressi">
+    <aside class="player-card" aria-label="Your progress">
       <div class="card-top"><span>PLAYER_01</span><span class="online">● ONLINE</span></div>
       <div class="avatar" aria-hidden="true">&lt; / &gt;<span>✦</span></div>
-      <h2>{{ progress.completed().length === 3 ? 'Quest master' : 'Esploratore di codice' }}</h2>
-      <p>LIVELLO {{ progress.level() }} <span>·</span> {{ progress.xp() }} XP</p>
+      <h2>{{ progress.completed().length === 3 ? 'Quest master' : 'Code explorer' }}</h2>
+      <p>LEVEL {{ progress.level() }} <span>·</span> {{ progress.xp() }} XP</p>
       <label for="quest-progress"
-        >Quest completate <strong>{{ progress.completed().length }}/3</strong></label
+        >Quests completed <strong>{{ progress.completed().length }}/3</strong></label
       >
       <progress id="quest-progress" [value]="progress.completed().length" max="3"></progress>
       <div class="player-footer">
         <span>{{
           progress.completed().length === 3
-            ? 'Tutti i badge sbloccati ✦'
-            : 'Il prossimo badge ti aspetta'
+            ? 'All badges unlocked ✦'
+            : 'Your next badge awaits'
         }}</span
-        ><button type="button" (click)="reset()" aria-label="Azzera i progressi e ricomincia">
-          Ricomincia ↺
+        ><button type="button" (click)="reset()" aria-label="Reset your progress and start again">
+          Start again ↺
         </button>
       </div>
       @if (!progress.storageAvailable()) {
         <p role="status">
-          Il browser non consente il salvataggio: i progressi durano questa sessione.
+          Your browser cannot save progress: it will last for this session only.
         </p>
       }
     </aside>
@@ -51,10 +51,10 @@
   <section id="missions" class="missions" aria-labelledby="missions-title">
     <div class="section-heading">
       <div>
-        <p class="eyebrow">01 / IL PERCORSO</p>
-        <h2 id="missions-title">Scegli la tua missione<span>.</span></h2>
+        <p class="eyebrow">01 / THE JOURNEY</p>
+        <h2 id="missions-title">Choose your mission<span>.</span></h2>
       </div>
-      <p>Esplora in qualsiasi ordine. Ogni sfida conta.</p>
+      <p>Explore in any order. Every challenge counts.</p>
     </div>
     <div class="mission-grid">
       @for (mission of missions; track mission.id; let index = $index) {
@@ -70,7 +70,7 @@
             ><span class="mission-number"
               >0{{ index + 1 }} /
               {{
-                progress.completed().includes(mission.id) ? 'COMPLETATA ✓' : 'DA ESPLORARE'
+                progress.completed().includes(mission.id) ? 'COMPLETED ✓' : 'TO EXPLORE'
               }}</span
             >
           </div>
@@ -79,7 +79,7 @@
           <p>{{ mission.description }}</p>
           <div class="mission-bottom">
             <span>+{{ mission.xp }} XP</span
-            ><span>{{ active() === mission.id ? 'IN GIOCO ↓' : 'APRI MISSIONE ↗' }}</span>
+            ><span>{{ active() === mission.id ? 'PLAYING ↓' : 'OPEN MISSION ↗' }}</span>
           </div>
         </button>
       }
@@ -87,21 +87,21 @@
     <div class="playground">
       <div class="playground-heading">
         <span class="status-dot"></span><span>PLAYGROUND / {{ active() }}</span
-        ><span class="demo-label">DEMO INTERATTIVA</span>
+        ><span class="demo-label">INTERACTIVE DEMO</span>
       </div>
       @switch (active()) {
         @case ('logic') {
           <div class="challenge">
             <div>
-              <p class="eyebrow">MISSIONE 01</p>
-              <h3>Un click, un punto in più.</h3>
-              <p>Il pulsante dovrebbe incrementare il contatore. Quale riga risolve il bug?</p>
+              <p class="eyebrow">MISSION 01</p>
+              <h3>One click, one more point.</h3>
+              <p>The button should increment the counter. Which line fixes the bug?</p>
               <pre><code>let count = 0;
 function increment() &#123;
-  count = +1; // qualcosa non torna…
+  count = +1; // something is off…
 &#125;</code></pre>
             </div>
-            <div class="answers" aria-label="Scegli la correzione">
+            <div class="answers" aria-label="Choose the fix">
               <button type="button" (click)="solve(false)">
                 <code>count = 1;</code><span>A ↗</span></button
               ><button type="button" (click)="solve(true)">
@@ -115,30 +115,30 @@ function increment() &#123;
         @case ('search') {
           <div class="challenge">
             <div>
-              <p class="eyebrow">MISSIONE 02</p>
-              <h3>Accendi il radar.</h3>
+              <p class="eyebrow">MISSION 02</p>
+              <h3>Switch on the radar.</h3>
               <p>
-                Filtra il catalogo per trovare <strong>RxJS</strong>, poi selezionalo. La lista si
-                aggiorna mentre scrivi.
+                Filter the catalog to find <strong>RxJS</strong>, then select it. The list
+                updates as you type.
               </p>
-              <label for="skill-search">Cerca una competenza</label
+              <label for="skill-search">Search for a skill</label
               ><input
                 id="skill-search"
                 type="search"
-                placeholder="Prova a scrivere rx…"
+                placeholder="Try typing rx…"
                 [value]="query()"
                 (input)="query.set($any($event.target).value)"
               />
             </div>
             <div>
               <p class="results-count" aria-live="polite">
-                {{ filteredSkills().length }} competenze trovate
+                Skills found: {{ filteredSkills().length }}
               </p>
               <div class="skill-results">
                 @for (skill of filteredSkills(); track skill) {
                   <button type="button" (click)="discover(skill)">{{ skill }} ↗</button>
                 } @empty {
-                  <p>Nessun risultato. Prova con un’altra ricerca.</p>
+                  <p>No results. Try another search.</p>
                 }
               </div>
             </div>
@@ -147,22 +147,22 @@ function increment() &#123;
         @case ('form') {
           <div class="challenge">
             <div>
-              <p class="eyebrow">MISSIONE 03</p>
-              <h3>Ogni lancio ha un piano.</h3>
+              <p class="eyebrow">MISSION 03</p>
+              <h3>Every launch needs a plan.</h3>
               <p>
-                Dai un nome alla missione e inserisci un’email valida. Il form ti aiuta a correggere
-                gli errori.
+                Name your mission and enter a valid email address. The form helps you fix
+                any errors.
               </p>
               <p class="privacy-note">
-                Dati dimostrativi: nessun invio e nessun salvataggio dei campi.
+                Demo data only: field values are never sent or saved.
               </p>
             </div>
             <form [formGroup]="launchForm" (ngSubmit)="launch()" novalidate>
-              <label for="mission-name">Nome della missione</label
+              <label for="mission-name">Mission name</label
               ><input
                 id="mission-name"
                 formControlName="name"
-                placeholder="Operazione Angular"
+                placeholder="Operation Angular"
                 maxlength="60"
                 [attr.aria-invalid]="
                   launchForm.controls.name.touched && launchForm.controls.name.invalid
@@ -171,15 +171,15 @@ function increment() &#123;
               />
               <p id="name-error" class="field-error">
                 @if (launchForm.controls.name.touched && launchForm.controls.name.invalid) {
-                  Inserisci da 3 a 60 caratteri, non solo spazi.
+                  Enter 3 to 60 characters, not just spaces.
                 }
               </p>
-              <label for="mission-email">Email del pilota</label
+              <label for="mission-email">Pilot email</label
               ><input
                 id="mission-email"
                 type="email"
                 formControlName="email"
-                placeholder="pilota@example.com"
+                placeholder="pilot@example.com"
                 [attr.aria-invalid]="
                   launchForm.controls.email.touched && launchForm.controls.email.invalid
                 "
@@ -187,10 +187,10 @@ function increment() &#123;
               />
               <p id="email-error" class="field-error">
                 @if (launchForm.controls.email.touched && launchForm.controls.email.invalid) {
-                  Inserisci un indirizzo email valido.
+                  Enter a valid email address.
                 }
               </p>
-              <button class="button primary" type="submit">Lancia la missione ↗</button>
+              <button class="button primary" type="submit">Launch mission ↗</button>
             </form>
           </div>
         }
@@ -199,19 +199,19 @@ function increment() &#123;
     </div>
   </section>
   <section id="project" class="project">
-    <p class="eyebrow">02 / DIETRO LE QUINTE</p>
+    <p class="eyebrow">02 / BEHIND THE SCENES</p>
     <div class="project-content">
-      <h2>Un piccolo gioco.<br />Tante cose da costruire.</h2>
+      <h2>A small game.<br />So much to build.</h2>
       <div>
         <p>
-          SkillQuest è un portfolio in evoluzione: queste missioni dimostrative mettono insieme
-          componenti Angular, stato reattivo, form e attenzione all’accessibilità.
+          SkillQuest is an evolving portfolio: these demo missions bring together
+          Angular components, reactive state, forms and accessibility.
         </p>
         <p>
-          I prossimi livelli ospiteranno progetti e competenze personali. Il codice è aperto: puoi
-          esplorarlo su GitHub.
+          Future levels will feature personal projects and skills. The source is open: you can
+          explore it on GitHub.
         </p>
-        <a href="https://github.com/smiyka/skillquest">Esplora il repository ↗</a>
+        <a href="https://github.com/smiyka/skillquest">Explore the repository ↗</a>
       </div>
     </div>
     <div class="tech-stack">
@@ -221,6 +221,6 @@ function increment() &#123;
   </section>
 </main>
 <footer>
-  <a class="brand" href="#">SkillQuest<span class="version">/ continua a costruire.</span></a
-  ><span>Fatto di codice, curiosità e piccoli passi.</span>
+  <a class="brand" href="#">SkillQuest<span class="version">/ keep building.</span></a
+  ><span>Made of code, curiosity and small steps.</span>
 </footer>

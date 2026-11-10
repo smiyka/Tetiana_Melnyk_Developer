@@ -8,7 +8,7 @@ describe('SkillQuest', () => {
     await TestBed.configureTestingModule({ imports: [App] }).compileComponents();
   });
 
-  it('assegna XP una sola volta e ripristina i progressi', () => {
+  it('awards XP only once and restores progress', () => {
     const progress = new Progress();
     progress.complete('logic');
     progress.complete('logic');
@@ -21,14 +21,14 @@ describe('SkillQuest', () => {
     expect(new Progress().completed()).toEqual([]);
   });
 
-  it('ignora dati salvati corrotti o sconosciuti', () => {
+  it('ignores corrupt or unknown saved data', () => {
     localStorage.setItem('skillquest.progress.v1', 'not-json');
     expect(new Progress().completed()).toEqual([]);
     localStorage.setItem('skillquest.progress.v1', '["logic","logic","fake"]');
     expect(new Progress().completed()).toEqual(['logic']);
   });
 
-  it('completa le missioni solo con le risposte corrette', () => {
+  it('completes missions only with correct answers', () => {
     const app = TestBed.createComponent(App).componentInstance;
     app.solve(false);
     app.discover('RxJS');
@@ -38,16 +38,16 @@ describe('SkillQuest', () => {
     app.query.set('rx');
     expect(app.filteredSkills()).toEqual(['RxJS']);
     app.discover('RxJS');
-    app.launchForm.setValue({ name: 'Demo missione', email: 'pilota@example.com' });
+    app.launchForm.setValue({ name: 'Demo mission', email: 'pilot@example.com' });
     app.launch();
     expect(app.progress.xp()).toBe(450);
   });
 
-  it('mostra le missioni e cambia playground dal pulsante', () => {
+  it('shows missions and switches the playground using a button', () => {
     const fixture = TestBed.createComponent(App);
     fixture.detectChanges();
     const root = fixture.nativeElement as HTMLElement;
-    expect(root.querySelector('h1')?.textContent).toContain('Le skill si vedono.');
+    expect(root.querySelector('h1')?.textContent).toContain('See skills in action.');
     (root.querySelectorAll('.mission-card')[1] as HTMLButtonElement).click();
     fixture.detectChanges();
     expect(root.querySelector('#skill-search')).toBeTruthy();
