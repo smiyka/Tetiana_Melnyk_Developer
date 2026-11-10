@@ -2,6 +2,12 @@
 
 Un portfolio giocabile costruito con Angular: tre missioni interattive per esplorare logica, stato reattivo e validazione dei form.
 
+## Demo online
+
+**[Apri SkillQuest](https://smiyka.github.io/skillquest/)**
+
+Il sito viene pubblicato automaticamente su GitHub Pages dopo ogni push su `main`, se test e build passano.
+
 ## Avvio locale
 
 Richiede Node.js 22.12 o successivo della serie 22 e npm.
@@ -21,6 +27,18 @@ npm test -- --watch=false
 ```
 
 La build statica viene generata in `dist/skillquest/browser`.
+
+Per generare la build con il percorso di GitHub Pages:
+
+```sh
+npm run build -- --base-href /skillquest/
+```
+
+## Deploy
+
+Il workflow [CI](.github/workflows/ci.yml) verifica ogni push e pull request e pubblica su GitHub Pages solo dal branch `main`.
+Nelle impostazioni del repository, **Settings → Pages → Build and deployment → Source** deve essere impostato su **GitHub Actions**.
+Lo stato della pubblicazione è visibile nella [scheda Actions](https://github.com/smiyka/skillquest/actions).
 
 ## Le missioni
 
