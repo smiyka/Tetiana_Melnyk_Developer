@@ -1,0 +1,45 @@
+:root {
+  --bg: #0d120e;
+  --panel: #151b16;
+  --text: #f2f4ec;
+  --muted: #a1ad9d;
+  --lime: #bbf26c;
+  --line: #2b342c;
+  --mono: 'Cascadia Code', Consolas, monospace;
+  color-scheme: dark;
+}
+* {
+  box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
+}
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Segoe UI', Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+button,
+input {
+  font-family: inherit;
+}
+button,
+a,
+input {
+  -webkit-tap-highlight-color: transparent;
+}
+:focus-visible {
+  outline: 2px solid var(--lime);
+  outline-offset: 5px;
+}
+::selection {
+  background: var(--lime);
+  color: var(--bg);
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
