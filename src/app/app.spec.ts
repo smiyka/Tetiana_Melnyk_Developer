@@ -49,3 +49,50 @@ describe('Page navigation', () => {
     expect(fixture.nativeElement.querySelector('nav a[aria-current="page"]')?.textContent).toBe('Developer Lab');
   });
 });
+
+describe('Color themes', () => {
+  beforeEach(() => {
+    TestBed.configureTestingModule({ imports: [App], providers: [provideRouter(routes)] });
+    localStorage.removeItem('portfolio-theme');
+    delete document.documentElement.dataset['theme'];
+  });
+
+  afterEach(() => {
+    localStorage.removeItem('portfolio-theme');
+    delete document.documentElement.dataset['theme'];
+  });
+
+  it('switches both themes through accessible buttons and saves the choice', () => {
+    const fixture = TestBed.createComponent(App);
+    fixture.detectChanges();
+    const buttons = fixture.nativeElement.querySelectorAll('.theme-switch button') as NodeListOf<HTMLButtonElement>;
+    buttons[1].click();
+    fixture.detectChanges();
+    expect(document.documentElement.dataset['theme']).toBe('dark');
+    expect(localStorage.getItem('portfolio-theme')).toBe('dark');
+    expect(buttons[1].getAttribute('aria-pressed')).toBe('true');
+    expect(buttons[0].getAttribute('aria-pressed')).toBe('false');
+    buttons[0].click();
+    fixture.detectChanges();
+    expect(document.documentElement.dataset['theme']).toBe('light');
+    expect(localStorage.getItem('portfolio-theme')).toBe('light');
+    expect(buttons[0].getAttribute('aria-pressed')).toBe('true');
+  });
+
+  it('preserves the theme applied before Angular starts', () => {
+    document.documentElement.dataset['theme'] = 'dark';
+    const fixture = TestBed.createComponent(App);
+    fixture.detectChanges();
+    expect(fixture.componentInstance.theme()).toBe('dark');
+    expect(document.documentElement.dataset['theme']).toBe('dark');
+  });
+
+  it('still changes theme when storage is unavailable', () => {
+    const fixture = TestBed.createComponent(App);
+    vi.spyOn(Storage.prototype, 'setItem').mockImplementation(() => { throw new Error('Storage blocked'); });
+    try {
+      expect(() => fixture.componentInstance.setTheme('dark')).not.toThrow();
+      expect(document.documentElement.dataset['theme']).toBe('dark');
+    } finally { vi.restoreAllMocks(); }
+  });
+});

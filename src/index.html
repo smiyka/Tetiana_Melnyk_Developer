@@ -8,7 +8,19 @@
       content="Tetiana Melnyk, Software Developer in Milan. Explore Angular, TypeScript and .NET experience through an interactive portfolio."
     />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#0d120e" />
+    <meta name="theme-color" content="#fff8fb" />
+    <script>
+      (() => {
+        let theme = 'light';
+        try {
+          const saved = localStorage.getItem('portfolio-theme');
+          theme = saved === 'light' || saved === 'dark' ? saved :
+            (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        } catch {}
+        document.documentElement.dataset.theme = theme;
+        document.querySelector('meta[name="theme-color"]').content = theme === 'dark' ? '#19131c' : '#fff8fb';
+      })();
+    </script>
     <base href="/" />
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   </head>

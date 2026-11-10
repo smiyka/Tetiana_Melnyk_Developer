@@ -7,6 +7,10 @@
     <a routerLink="/lab" routerLinkActive="active" ariaCurrentWhenActive="page">Developer Lab</a>
     <a routerLink="/games" routerLinkActive="active" ariaCurrentWhenActive="page">Games</a>
   </nav>
+  <div class="theme-switch" role="group" aria-label="Color theme">
+    <button type="button" [attr.aria-pressed]="theme() === 'light'" (click)="setTheme('light')"><span aria-hidden="true">☀</span> Light</button>
+    <button type="button" [attr.aria-pressed]="theme() === 'dark'" (click)="setTheme('dark')"><span aria-hidden="true">☾</span> Dark</button>
+  </div>
 </header>
 <main #main id="main-content" tabindex="-1"><router-outlet (activate)="onPageChange()" /></main>
 <footer><a class="brand" routerLink="/">Tetiana Melnyk<span class="version">Developer Portfolio</span></a><a href="https://github.com/smiyka/Tetiana_Melnyk_Developer">Explore the source ↗</a></footer>
