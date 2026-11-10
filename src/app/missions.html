@@ -1,0 +1,179 @@
+<div class="page">
+<section class="hero"><div><p class="eyebrow">THE LAB / INTERACTIVE CHALLENGES</p><h1>Small challenges.<br /><span>Real concepts.</span></h1><p class="intro">Explore TypeScript logic, reactive search and form validation. Complete missions to earn XP and unlock your badges.</p></div>
+    <aside class="player-card" aria-label="Your progress">
+      <div class="card-top"><span>PLAYER_01</span><span class="online">● ONLINE</span></div>
+      <div class="avatar" aria-hidden="true">&lt; / &gt;<span>✦</span></div>
+      <h2>{{ progress.completed().length === 3 ? 'Quest master' : 'Code explorer' }}</h2>
+      <p>LEVEL {{ progress.level() }} <span>·</span> {{ progress.xp() }} XP</p>
+      <label for="quest-progress"
+        >Quests completed <strong>{{ progress.completed().length }}/3</strong></label
+      >
+      <progress id="quest-progress" [value]="progress.completed().length" max="3"></progress>
+      <div class="player-footer">
+        <span>{{
+          progress.completed().length === 3
+            ? 'All badges unlocked ✦'
+            : 'Your next badge awaits'
+        }}</span
+        ><button type="button" (click)="reset()" aria-label="Reset your progress and start again">
+          Start again ↺
+        </button>
+      </div>
+      @if (!progress.storageAvailable()) {
+        <p role="status">
+          Your browser cannot save progress: it will last for this session only.
+        </p>
+      }
+    </aside>
+</section>
+  <section id="missions" class="missions" aria-labelledby="missions-title">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">01 / THE JOURNEY</p>
+        <h2 id="missions-title">Choose your mission<span>.</span></h2>
+      </div>
+      <p>Three demos inspired by my frontend work. Explore in any order.</p>
+    </div>
+    <div class="mission-grid">
+      @for (mission of missions; track mission.id; let index = $index) {
+        <button
+          type="button"
+          class="mission-card"
+          [class.selected]="active() === mission.id"
+          [attr.aria-pressed]="active() === mission.id"
+          (click)="select(mission.id)"
+        >
+          <div class="mission-top">
+            <span class="mission-icon" aria-hidden="true">{{ mission.icon }}</span
+            ><span class="mission-number"
+              >0{{ index + 1 }} /
+              {{
+                progress.completed().includes(mission.id) ? 'COMPLETED ✓' : 'TO EXPLORE'
+              }}</span
+            >
+          </div>
+          <span class="mission-skill">{{ mission.skill }}</span>
+          <h3>{{ mission.title }}</h3>
+          <p>{{ mission.description }}</p>
+          <div class="mission-bottom">
+            <span>+{{ mission.xp }} XP</span
+            ><span>{{ active() === mission.id ? 'PLAYING ↓' : 'OPEN MISSION ↗' }}</span>
+          </div>
+        </button>
+      }
+    </div>
+    <div class="playground">
+      <div class="playground-heading">
+        <span class="status-dot"></span><span>PLAYGROUND / {{ active() }}</span
+        ><span class="demo-label">INTERACTIVE DEMO</span>
+      </div>
+      @switch (active()) {
+        @case ('logic') {
+          <div class="challenge">
+            <div>
+              <p class="eyebrow">MISSION 01</p>
+              <h3>One click, one more point.</h3>
+              <p>Debugging is part of my everyday TypeScript work. Here is a small demo: the button should increment the counter. Which line fixes the bug?</p>
+              <pre><code>let count = 0;
+function increment() &#123;
+  count = +1; // something is off…
+&#125;</code></pre>
+            </div>
+            <div class="answers" aria-label="Choose the fix">
+              <button type="button" (click)="solve(false)">
+                <code>count = 1;</code><span>A ↗</span></button
+              ><button type="button" (click)="solve(true)">
+                <code>count += 1;</code><span>B ↗</span></button
+              ><button type="button" (click)="solve(false)">
+                <code>count -= 1;</code><span>C ↗</span>
+              </button>
+            </div>
+          </div>
+        }
+        @case ('search') {
+          <div class="challenge">
+            <div>
+              <p class="eyebrow">MISSION 02</p>
+              <h3>Switch on the radar.</h3>
+              <p>
+                Filter the catalog to find <strong>RxJS</strong>, then select it. The list
+                updates as you type. This catalog reflects the skills in my CV, including earlier projects and training.
+              </p>
+              <label for="skill-search">Search for a skill</label
+              ><input
+                id="skill-search"
+                type="search"
+                placeholder="Try typing rx…"
+                [value]="query()"
+                (input)="query.set($any($event.target).value)"
+              />
+            </div>
+            <div>
+              <p class="results-count" aria-live="polite">
+                Skills found: {{ filteredSkills().length }}
+              </p>
+              <div class="skill-results">
+                @for (skill of filteredSkills(); track skill) {
+                  <button type="button" (click)="discover(skill)">{{ skill }} ↗</button>
+                } @empty {
+                  <p>No results. Try another search.</p>
+                }
+              </div>
+            </div>
+          </div>
+        }
+        @case ('form') {
+          <div class="challenge">
+            <div>
+              <p class="eyebrow">MISSION 03</p>
+              <h3>Every launch needs a plan.</h3>
+              <p>
+                Name your mission and enter a valid email address. The form helps you fix
+                any errors. It is a small example of the UI validation involved in building web applications.
+              </p>
+              <p class="privacy-note">
+                Demo data only: field values are never sent or saved.
+              </p>
+            </div>
+            <form [formGroup]="launchForm" (ngSubmit)="launch()" novalidate>
+              <label for="mission-name">Mission name</label
+              ><input
+                id="mission-name"
+                formControlName="name"
+                placeholder="Operation Angular"
+                maxlength="60"
+                [attr.aria-invalid]="
+                  launchForm.controls.name.touched && launchForm.controls.name.invalid
+                "
+                aria-describedby="name-error"
+              />
+              <p id="name-error" class="field-error">
+                @if (launchForm.controls.name.touched && launchForm.controls.name.invalid) {
+                  Enter 3 to 60 characters, not just spaces.
+                }
+              </p>
+              <label for="mission-email">Pilot email</label
+              ><input
+                id="mission-email"
+                type="email"
+                formControlName="email"
+                placeholder="pilot@example.com"
+                [attr.aria-invalid]="
+                  launchForm.controls.email.touched && launchForm.controls.email.invalid
+                "
+                aria-describedby="email-error"
+              />
+              <p id="email-error" class="field-error">
+                @if (launchForm.controls.email.touched && launchForm.controls.email.invalid) {
+                  Enter a valid email address.
+                }
+              </p>
+              <button class="button primary" type="submit">Launch mission ↗</button>
+            </form>
+          </div>
+        }
+      }
+      <p class="feedback" role="status" aria-live="polite">{{ feedback() }}</p>
+    </div>
+  </section>
+</div>

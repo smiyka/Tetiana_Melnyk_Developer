@@ -1,3 +1,5 @@
+@use './app/page';
+
 :root {
   --bg: #0d120e;
   --panel: #151b16;
@@ -37,6 +39,63 @@ input {
 ::selection {
   background: var(--lime);
   color: var(--bg);
+}
+.page { padding-bottom: 64px; }
+.page-intro, .cv-intro { padding: 64px 0 40px; }
+.page .cv-role { color: var(--lime); font: 16px var(--mono); margin: 18px 0; }
+.cv-intro .intro { max-width: 760px; }
+.cv-actions { display: flex; flex-wrap: wrap; gap: 12px; margin: 24px 0; }
+.page .secondary { background: transparent; border: 1px solid var(--line); color: var(--text); }
+.page.cv-page #project { margin-top: 0; }
+.strengths { padding: 0 0 48px; }
+.strength-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; margin-top: 26px; }
+.strength-grid article { padding: 24px; border: 1px solid var(--line); border-radius: 10px; background: var(--panel); }
+.strength-grid h3 { font-size: 19px; margin: 12px 0; letter-spacing: -0.4px; }
+.strength-grid p { color: var(--muted); font-size: 13px; line-height: 1.9; margin-bottom: 0; }
+.destination-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin-top: 28px; }
+.games-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+.page a.destination { display: flex; flex-direction: column; padding: 28px; background: var(--panel); border: 1px solid var(--line); border-radius: 12px; transition: border-color 160ms, transform 160ms; }
+.page a.destination:hover { border-color: #91aa6f; transform: translateY(-3px); }
+.destination-icon { color: var(--lime); font: 26px var(--mono); margin-bottom: 28px; }
+.page .destination h3 { font-size: 26px; letter-spacing: -0.8px; margin: 12px 0; }
+.destination p { color: var(--muted); font-size: 13px; line-height: 1.9; margin-bottom: 28px; }
+.card-link { color: var(--lime); font: 11px var(--mono); margin-top: auto; padding-top: 20px; border-top: 1px solid var(--line); }
+.home-art { border: 1px solid #bbf26c38; border-radius: 18px; background: radial-gradient(ellipse at center, #bbf26c15, transparent), var(--panel); padding: 30px; min-height: 310px; display: flex; flex-direction: column; justify-content: space-between; gap: 28px; }
+.home-art > div { display: flex; justify-content: center; align-items: center; gap: 28px; }
+.home-art app-bug-token { width: 100px; height: 100px; }
+.versus { color: var(--muted); font: 13px var(--mono); }
+.art-label { font: 9px var(--mono); color: var(--muted); letter-spacing: 1px; text-align: center; }
+.game-art { height: 190px; display: flex; align-items: center; justify-content: center; gap: 28px; background: radial-gradient(ellipse at center, #bbf26c10, transparent); border-bottom: 1px solid var(--line); margin: -10px -10px 26px; }
+.game-art app-bug-token { width: 90px; height: 90px; }
+.crosshair { color: var(--muted); font-size: 52px; }
+.game-page { padding-top: 32px; }
+.back-link { display: inline-block; color: var(--muted); text-decoration: none; font: 12px var(--mono); margin-bottom: 32px; }
+.back-link:hover { color: var(--lime); }
+@media (max-width: 850px) { .destination-grid { grid-template-columns: 1fr; } .page .home-hero { grid-template-columns: 1fr; } }
+@media (max-width: 600px) {
+ .strength-grid { grid-template-columns: 1fr; }
+ .games-grid { grid-template-columns: 1fr; }
+ .page-intro, .cv-intro { padding-top: 40px; }
+ .page a.destination { padding: 24px; }
+ .home-art { min-height: 260px; padding: 24px; }
+ .home-art app-bug-token { width: 80px; height: 80px; }
+ .game-art { height: 160px; }
+}
+@media (prefers-reduced-motion: reduce) { .page a.destination { transition: none; } .page a.destination:hover { transform: none; } }
+@media print {
+ :root { --bg: #fff; --panel: #fff; --text: #111; --muted: #444; --lime: #244d12; --line: #ccc; color-scheme: light; }
+ body { background: #fff; color: #111; font-size: 10pt; }
+ .cv-actions, .cv-intro > .contact-links { display: none; }
+ .page .cv-intro { padding: 0; }
+ .page h1 { font-size: 30pt; margin: 10px 0; }
+ .page .intro { max-width: none; }
+ .page .project { margin-top: 18px; padding: 12px 0; }
+ .page .project-content, .page .profile-skills, .page .background-grid { gap: 16px; }
+ .page .detail-card, .page .credential { break-inside: avoid; padding: 10px; }
+ .strength-grid article { break-inside: avoid; padding: 12px; }
+ .page .experience-grid { grid-template-columns: 1fr; }
+ .page .tech-stack { margin-top: 10px; gap: 5px; }
+ .page .tech-stack span { padding: 4px 7px; }
 }
 @media (prefers-reduced-motion: reduce) {
   html {

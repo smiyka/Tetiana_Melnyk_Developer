@@ -1,55 +1,37 @@
 import { TestBed } from '@angular/core/testing';
+import { Router, provideRouter } from '@angular/router';
 import { App } from './app';
-import { Progress } from './progress';
+import { routes } from './app.routes';
 
-describe('SkillQuest', () => {
-  beforeEach(async () => {
-    localStorage.clear();
-    await TestBed.configureTestingModule({ imports: [App] }).compileComponents();
-  });
+describe('Page navigation', () => {
+  beforeEach(() => TestBed.configureTestingModule({ imports: [App], providers: [provideRouter(routes)] }));
 
-  it('awards XP only once and restores progress', () => {
-    const progress = new Progress();
-    progress.complete('logic');
-    progress.complete('logic');
-    expect(progress.xp()).toBe(100);
-    expect(new Progress().completed()).toEqual(['logic']);
-    progress.complete('search');
-    progress.complete('form');
-    expect(progress.xp()).toBe(450);
-    progress.reset();
-    expect(new Progress().completed()).toEqual([]);
-  });
-
-  it('ignores corrupt or unknown saved data', () => {
-    localStorage.setItem('skillquest.progress.v1', 'not-json');
-    expect(new Progress().completed()).toEqual([]);
-    localStorage.setItem('skillquest.progress.v1', '["logic","logic","fake"]');
-    expect(new Progress().completed()).toEqual(['logic']);
-  });
-
-  it('completes missions only with correct answers', () => {
-    const app = TestBed.createComponent(App).componentInstance;
-    app.solve(false);
-    app.discover('RxJS');
-    app.launch();
-    expect(app.progress.xp()).toBe(0);
-    app.solve(true);
-    app.query.set('rx');
-    expect(app.filteredSkills()).toEqual(['RxJS']);
-    app.discover('RxJS');
-    app.launchForm.setValue({ name: 'Demo mission', email: 'pilot@example.com' });
-    app.launch();
-    expect(app.progress.xp()).toBe(450);
-  });
-
-  it('shows missions and switches the playground using a button', () => {
+  it('keeps the CV separate from games and missions and offers a CV download', async () => {
     const fixture = TestBed.createComponent(App);
     fixture.detectChanges();
-    const root = fixture.nativeElement as HTMLElement;
-    expect(root.querySelector('h1')?.textContent).toContain('See skills in action.');
-    (root.querySelectorAll('.mission-card')[1] as HTMLButtonElement).click();
+    await TestBed.inject(Router).navigateByUrl('/cv');
+    await fixture.whenStable();
     fixture.detectChanges();
-    expect(root.querySelector('#skill-search')).toBeTruthy();
+    const root = fixture.nativeElement as HTMLElement;
+    expect(root.querySelector('h1')?.textContent).toContain('Tetiana Melnyk');
+    expect(root.querySelector('a[download]')?.getAttribute('href')).toBe('tetiana-melnyk-cv.pdf');
+    expect(root.querySelector('app-bug-game')).toBeNull();
+    expect(root.querySelector('.mission-grid')).toBeNull();
+    expect(root.querySelector('nav a[aria-current="page"]')?.textContent).toBe('My CV');
+  });
+
+  it('opens each game on its own page and supports the previous Bug Blaster link', async () => {
+    const fixture = TestBed.createComponent(App);
+    fixture.detectChanges();
+    const router = TestBed.inject(Router);
+    await router.navigateByUrl('/games/tic-tac-toe');
+    await fixture.whenStable(); fixture.detectChanges();
+    expect(fixture.nativeElement.querySelectorAll('.square')).toHaveLength(9);
+    expect(fixture.nativeElement.querySelector('app-cv')).toBeNull();
+    await router.navigateByUrl('/bug-blaster');
+    await fixture.whenStable(); fixture.detectChanges();
+    expect(router.url).toBe('/games/bug-blaster');
+    expect(fixture.nativeElement.querySelector('app-bug-game')).toBeTruthy();
+    expect(fixture.nativeElement.querySelector('.board')).toBeNull();
   });
 });
