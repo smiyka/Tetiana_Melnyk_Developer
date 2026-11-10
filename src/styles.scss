@@ -61,9 +61,12 @@ input {
 .page .destination h3 { font-size: 26px; letter-spacing: -0.8px; margin: 12px 0; }
 .destination p { color: var(--muted); font-size: 13px; line-height: 1.9; margin-bottom: 28px; }
 .card-link { color: var(--lime); font: 11px var(--mono); margin-top: auto; padding-top: 20px; border-top: 1px solid var(--line); }
-.home-art { border: 1px solid #bbf26c38; border-radius: 18px; background: radial-gradient(ellipse at center, #bbf26c15, transparent), var(--panel); padding: 30px; min-height: 310px; display: flex; flex-direction: column; justify-content: space-between; gap: 28px; }
-.home-art > div { display: flex; justify-content: center; align-items: center; gap: 28px; }
-.home-art app-bug-token { width: 100px; height: 100px; }
+.developer-card { padding: 30px; border: 1px solid #bbf26c38; border-radius: 16px; background: radial-gradient(ellipse at 70% 30%, #bbf26c12, transparent), var(--panel); }
+.developer-monogram { display: inline-flex; position: relative; margin: 24px 0 14px; padding: 20px 15px; border: 1px solid #bbf26c50; border-radius: 12px; color: var(--lime); background: #202c1b; font: 700 28px var(--mono); }
+.developer-monogram > span { position: absolute; top: -12px; right: -13px; font-size: 32px; }
+.page .developer-card h2 { font-size: 27px; line-height: 1.25; margin-bottom: 14px; }
+.developer-card > p { font: 11px/1.8 var(--mono); color: var(--muted); }
+.developer-card > div { display: flex; flex-direction: column; gap: 10px; margin-top: 26px; padding-top: 22px; border-top: 1px solid var(--line); color: var(--muted); font-size: 11px; }
 .versus { color: var(--muted); font: 13px var(--mono); }
 .art-label { font: 9px var(--mono); color: var(--muted); letter-spacing: 1px; text-align: center; }
 .game-art { height: 190px; display: flex; align-items: center; justify-content: center; gap: 28px; background: radial-gradient(ellipse at center, #bbf26c10, transparent); border-bottom: 1px solid var(--line); margin: -10px -10px 26px; }
@@ -78,8 +81,6 @@ input {
  .games-grid { grid-template-columns: 1fr; }
  .page-intro, .cv-intro { padding-top: 40px; }
  .page a.destination { padding: 24px; }
- .home-art { min-height: 260px; padding: 24px; }
- .home-art app-bug-token { width: 80px; height: 80px; }
  .game-art { height: 160px; }
 }
 @media (prefers-reduced-motion: reduce) { .page a.destination { transition: none; } .page a.destination:hover { transform: none; } }

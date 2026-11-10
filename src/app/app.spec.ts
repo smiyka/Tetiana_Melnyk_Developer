@@ -6,7 +6,7 @@ import { routes } from './app.routes';
 describe('Page navigation', () => {
   beforeEach(() => TestBed.configureTestingModule({ imports: [App], providers: [provideRouter(routes)] }));
 
-  it('keeps the CV separate from games and missions and offers a CV download', async () => {
+  it('keeps the CV separate from games and the lab and offers a CV download', async () => {
     const fixture = TestBed.createComponent(App);
     fixture.detectChanges();
     await TestBed.inject(Router).navigateByUrl('/cv');
@@ -19,7 +19,7 @@ describe('Page navigation', () => {
     expect(printLink?.getAttribute('href')).toBe('tetiana-melnyk-cv.pdf');
     expect(printLink?.target).toBe('_blank');
     expect(root.querySelector('app-bug-game')).toBeNull();
-    expect(root.querySelector('.mission-grid')).toBeNull();
+    expect(root.querySelector('app-developer-lab')).toBeNull();
     expect(root.querySelector('nav a[aria-current="page"]')?.textContent).toBe('My CV');
   });
 
@@ -36,5 +36,16 @@ describe('Page navigation', () => {
     expect(router.url).toBe('/games/bug-blaster');
     expect(fixture.nativeElement.querySelector('app-bug-game')).toBeTruthy();
     expect(fixture.nativeElement.querySelector('.board')).toBeNull();
+  });
+
+  it('redirects the earlier missions URL to the structured Developer Lab', async () => {
+    const fixture = TestBed.createComponent(App);
+    fixture.detectChanges();
+    const router = TestBed.inject(Router);
+    await router.navigateByUrl('/missions');
+    await fixture.whenStable(); fixture.detectChanges();
+    expect(router.url).toBe('/lab');
+    expect(fixture.nativeElement.querySelector('h1')?.textContent).toContain('See how I build');
+    expect(fixture.nativeElement.querySelector('nav a[aria-current="page"]')?.textContent).toBe('Developer Lab');
   });
 });

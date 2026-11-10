@@ -1,70 +1,32 @@
-import { computed, Injectable, signal } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 
-export const MISSIONS = [
-  {
-    id: 'logic',
-    title: 'Bug hunt',
-    skill: 'TypeScript · Logic',
-    xp: 100,
-    icon: '</>',
-    description: 'A counter has lost its way. Find the fix.',
-  },
-  {
-    id: 'search',
-    title: 'Skill radar',
-    skill: 'Angular · Reactive state',
-    xp: 150,
-    icon: '⌕',
-    description: 'Explore the catalog and track down the hidden skill.',
-  },
-  {
-    id: 'form',
-    title: 'Ready for launch',
-    skill: 'Forms · Validation',
-    xp: 200,
-    icon: '↗',
-    description: 'Prepare a mission with valid data and launch it.',
-  },
-] as const;
-export type MissionId = (typeof MISSIONS)[number]['id'];
+export const LAB_EXAMPLE_IDS = ['logic', 'search', 'form'] as const;
+export type ExampleId = (typeof LAB_EXAMPLE_IDS)[number];
+// Preserve completion data saved by earlier versions of the portfolio.
 const KEY = 'skillquest.progress.v1';
 
 @Injectable({ providedIn: 'root' })
-export class Progress {
-  readonly completed = signal<MissionId[]>(this.load());
-  readonly xp = computed(() =>
-    MISSIONS.filter((m) => this.completed().includes(m.id)).reduce((sum, m) => sum + m.xp, 0),
-  );
-  readonly level = computed(() => 1 + Math.floor(this.xp() / 150));
+export class LabProgress {
+  readonly completed = signal<ExampleId[]>(this.load());
   readonly storageAvailable = signal(true);
 
-  complete(id: MissionId): void {
+  complete(id: ExampleId): void {
     if (this.completed().includes(id)) return;
-    this.completed.update((ids) => [...ids, id]);
+    this.completed.update(ids => [...ids, id]);
     this.persist();
   }
 
-  reset(): void {
-    this.completed.set([]);
-    this.persist();
-  }
+  reset(): void { this.completed.set([]); this.persist(); }
 
-  private load(): MissionId[] {
+  private load(): ExampleId[] {
     try {
       const value: unknown = JSON.parse(localStorage.getItem(KEY) ?? '[]');
-      return Array.isArray(value)
-        ? MISSIONS.filter((m) => value.includes(m.id)).map((m) => m.id)
-        : [];
-    } catch {
-      return [];
-    }
+      return Array.isArray(value) ? LAB_EXAMPLE_IDS.filter(id => value.includes(id)) : [];
+    } catch { return []; }
   }
 
   private persist(): void {
-    try {
-      localStorage.setItem(KEY, JSON.stringify(this.completed()));
-    } catch {
-      this.storageAvailable.set(false);
-    }
+    try { localStorage.setItem(KEY, JSON.stringify(this.completed())); }
+    catch { this.storageAvailable.set(false); }
   }
 }

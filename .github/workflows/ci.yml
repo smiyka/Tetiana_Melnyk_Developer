@@ -16,7 +16,7 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm test -- --watch=false
-      - run: npm run build -- --base-href /skillquest/
+      - run: npm run build -- --base-href /Tetiana_Melnyk_Developer/
       - name: Upload GitHub Pages artifact
         if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         uses: actions/upload-pages-artifact@v4

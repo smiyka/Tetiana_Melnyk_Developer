@@ -1,0 +1,46 @@
+<div class="lab-page">
+  <header class="lab-intro"><p class="eyebrow">DEVELOPER LAB / INTERACTIVE EXAMPLES</p><h1>See how I build<span>.</span></h1><p>Three small, hands-on examples of frontend work: debugging logic, deriving reactive state and validating accessible forms.</p><span class="lab-meta">3 EXAMPLES <span>·</span> ABOUT 5 MINUTES <span>·</span> NO ACCOUNT NEEDED</span></header>
+  <div class="lab-summary"><div><strong>A clear path from problem to result.</strong><p>Start with example 01, or explore any topic. Each one explains what to do and why it works.</p></div><div class="completion"><span>{{ progress.completed().length }} / 3 explored</span><progress aria-label="Examples completed" [value]="progress.completed().length" max="3"></progress></div></div>
+  <div class="lab-layout">
+    <aside class="example-nav" aria-label="Examples">
+      <p class="eyebrow">THE EXAMPLES</p>
+      @for (item of examples; track item.id; let number = $index) {
+        <button class="example-link" type="button" (click)="select(item.id)" [class.current]="active() === item.id" [attr.aria-current]="active() === item.id ? 'step' : null" aria-controls="example-panel"><span class="example-number">0{{ number + 1 }}</span><span><strong>{{ item.title }}</strong><small>{{ item.topic }} · {{ item.duration }}</small><span class="step-status">{{ progress.completed().includes(item.id) ? 'Completed ✓' : active() === item.id ? 'Currently exploring' : 'Ready to explore' }}</span></span></button>
+      }
+      <p class="demo-note">These are educational examples built for this portfolio, separate from my client work.</p>
+      <button class="reset-link" type="button" (click)="reset()">Reset lab progress ↺</button>
+      @if (!progress.storageAvailable()) { <p class="demo-note" role="status">Progress cannot be saved in this browser. You can continue exploring in this session.</p> }
+    </aside>
+    <section id="example-panel" class="example-panel" aria-labelledby="example-heading">
+      <header class="example-header"><p class="eyebrow">EXAMPLE 0{{ index() + 1 }} OF 03 <span> / {{ example().topic }}</span></p><h2 #exampleHeading id="example-heading" tabindex="-1">{{ example().title }}</h2><div class="goal"><span>YOUR GOAL</span><p>{{ example().goal }}</p></div></header>
+      <div class="example-body">
+        @switch (active()) {
+          @case ('logic') {
+            <div class="task-section"><h3><span>1</span> Inspect the bug</h3><p>This counter resets to 1 on every click. It should add one to its existing value.</p><pre><code>let count = 0;
+function increment() &#123;
+  count = +1; // assigns 1 instead of incrementing
+&#125;</code></pre></div>
+            <div class="task-section"><h3><span>2</span> Choose a replacement</h3><div class="fix-options" role="group" aria-label="Counter fix"><button type="button" (click)="chooseFix('assign')" [attr.aria-pressed]="fix() === 'assign'"><code>count = 1;</code></button><button type="button" (click)="chooseFix('increment')" [attr.aria-pressed]="fix() === 'increment'"><code>count += 1;</code></button><button type="button" (click)="chooseFix('decrement')" [attr.aria-pressed]="fix() === 'decrement'"><code>count -= 1;</code></button></div></div>
+            <div class="task-section"><h3><span>3</span> Test the behavior</h3><div class="counter-preview"><div><span>COUNTER VALUE</span><output aria-live="polite">{{ counter() }}</output></div><div class="counter-expectation"><span>{{ runs() }} {{ runs() === 1 ? 'click' : 'clicks' }} · Expected: {{ runs() }}</span><strong>{{ runs() < 2 ? 'Run it twice to test' : counterPassed() ? 'Test passed ✓' : 'Test failed — try another fix' }}</strong></div></div><div class="action-row"><button class="action primary" type="button" [disabled]="!fix()" (click)="runCounter()">Run increment +1</button><button class="action secondary" type="button" (click)="resetCounter()">Reset counter</button></div></div>
+          }
+          @case ('search') {
+            <div class="task-section"><h3><span>1</span> Change the query</h3><p>The catalog uses skills from my CV, including earlier projects and training. Type <code>rx</code> to narrow it down.</p><label for="skill-search">Search the skill catalog</label><input id="skill-search" type="search" placeholder="Try rx" [value]="query()" (input)="query.set($any($event.target).value)" aria-describedby="search-help" /><p class="field-hint" id="search-help">Results update as you type. Clear the query to see the full catalog.</p></div>
+            <div class="task-section"><h3><span>2</span> Select the matching result</h3><p class="result-count" aria-live="polite">{{ filteredSkills().length }} {{ filteredSkills().length === 1 ? 'result' : 'results' }}{{ query().trim() ? ' for “' + query().trim() + '”' : '' }}</p><div class="skill-results">@for (skill of filteredSkills(); track skill) { <button type="button" [class.found]="skill === 'RxJS' && foundSkill()" (click)="discover(skill)">{{ skill }} {{ skill === 'RxJS' && foundSkill() ? '✓' : '↗' }}</button> } @empty { <div class="empty-results"><strong>No matching skills.</strong><p>Try <code>rx</code>, or clear the search and explore the catalog.</p></div> }</div></div>
+          }
+          @case ('form') {
+            <div class="task-section"><h3><span>1</span> Try the validation</h3><p>Submit the empty form first to see the error messages. Then correct the fields and validate again.</p><p class="privacy-note">Use made-up details. No information is sent to a server or saved.</p></div>
+            <form [formGroup]="launchForm" (ngSubmit)="launch()" (input)="clearFormResult()" novalidate>
+              <label for="project-name">Project name</label><input id="project-name" formControlName="name" placeholder="Customer portal" maxlength="60" [attr.aria-invalid]="launchForm.controls.name.touched && launchForm.controls.name.invalid" aria-describedby="name-help name-error" /><p class="field-hint" id="name-help">3–60 characters. Spaces alone do not count as a name.</p><p class="field-error" id="name-error">@if (launchForm.controls.name.touched && launchForm.controls.name.invalid) { Enter a project name with 3–60 characters, not just spaces. }</p>
+              <label for="project-email">Contact email</label><input id="project-email" type="email" formControlName="email" placeholder="hello@example.com" [attr.aria-invalid]="launchForm.controls.email.touched && launchForm.controls.email.invalid" aria-describedby="email-help email-error" /><p class="field-hint" id="email-help">Use a demo address such as hello&#64;example.com.</p><p class="field-error" id="email-error">@if (launchForm.controls.email.touched && launchForm.controls.email.invalid) { Enter a valid email address. }</p>
+              <button class="action primary" type="submit">Validate brief ↗</button>
+              @if (formValidated()) { <div class="validated-result"><strong>Brief validated ✓</strong><p>Required fields, name length and email format all pass.</p></div> }
+            </form>
+          }
+        }
+        <p class="feedback" [class.error]="feedbackError()" role="status" aria-live="polite">{{ feedback() }}</p>
+        <details class="explanation" [open]="completed()"><summary>Why this approach works</summary><p>{{ example().why }}</p><a href="https://github.com/smiyka/Tetiana_Melnyk_Developer/blob/main/src/app/developer-lab.ts">Explore the source code ↗</a></details>
+      </div>
+      <footer class="example-footer"><span>{{ completed() ? 'Example completed ✓' : 'Try the example to mark it complete' }}</span>@if (index() < 2) { <button class="action secondary" type="button" (click)="next()">{{ completed() ? 'Next example →' : 'Skip to next example →' }}</button> } @else if (progress.completed().length === 3) { <strong>All three examples explored. Thank you!</strong> }</footer>
+    </section>
+  </div>
+</div>

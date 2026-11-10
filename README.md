@@ -1,40 +1,59 @@
-# SkillQuest
+# Tetiana Melnyk — Developer Portfolio
 
-A portfolio and small arcade for **Tetiana Melnyk**, a Software Developer based in Milan with 3+ years of commercial web development experience. Dedicated pages separate the professional CV, games and interactive frontend missions.
+A professional portfolio for **Tetiana Melnyk**, a Software Developer in Milan with 3+ years of commercial web development experience. The site introduces my experience and approach to development, with a dedicated CV, guided frontend examples and a separate arcade.
 
-## About Tetiana
+## Live portfolio
+
+**[Open the portfolio](https://smiyka.github.io/Tetiana_Melnyk_Developer/)**
+
+| Page | Contents |
+| --- | --- |
+| [Home](https://smiyka.github.io/Tetiana_Melnyk_Developer/) | Professional introduction and a clear path to the CV, Developer Lab and games |
+| [My CV](https://smiyka.github.io/Tetiana_Melnyk_Developer/#/cv) | Strengths, experience, skills, training, education, certifications and contacts |
+| [Developer Lab](https://smiyka.github.io/Tetiana_Melnyk_Developer/#/lab) | Three structured examples with a goal, hands-on steps, visible results and an explanation |
+| [Games](https://smiyka.github.io/Tetiana_Melnyk_Developer/#/games) | Arcade selection |
+| [Bug Blaster](https://smiyka.github.io/Tetiana_Melnyk_Developer/#/games/bug-blaster) | Timed bug-squashing game |
+| [Bug Tac Toe](https://smiyka.github.io/Tetiana_Melnyk_Developer/#/games/tic-tac-toe) | Green versus red bugs in tic-tac-toe |
+
+The CV page provides a [downloadable PDF](https://smiyka.github.io/Tetiana_Melnyk_Developer/tetiana-melnyk-cv.pdf) containing only the CV, without the cover letter. **Print CV (PDF)** opens that document in a new tab; use the PDF viewer’s print button to print it.
+
+## Professional background
 
 - Software Engineer / Full-Stack Developer at **Intré**, May 2023–present.
 - Current engagement: **Namirial**, working with Angular 18, TypeScript, .NET, REST APIs, SQL and PostgreSQL on a digital signature platform.
+- Since early 2026: analyzing code and requirements, planning changes and writing Jira tasks for other developers.
 - Earlier engagements: **Siemens** (Angular and Java/Spring Boot, energy) and **RGI** (Angular/TypeScript frontend and E2E tests, insurance).
-- Frontend training at **Mate Academy**, 2022–2023; previous freelance graphic design experience, 2019–2021.
+- Frontend training at **Mate Academy**, 2022–2023; freelance graphic design experience, 2019–2021.
 - Two Bachelor’s degrees, in Computer Software Engineering and teaching Mathematics and Computer Science.
 - Certified Junior Angular Developer (January 2026) and DevOps Essentials (August 2026).
 
 [GitHub](https://github.com/smiyka) · [LinkedIn](https://www.linkedin.com/in/89-tetiana-melnyk)
 
-Profile content is based on the supplied CV. Commercial engagements describe experience; the playable missions are educational demos. The portfolio itself uses Angular 21, while Angular 18 is the version listed for professional experience in the CV.
+Profile content is based on the supplied CV. The lab and games are portfolio examples, separate from commercial client work. The portfolio uses Angular 21; Angular 18 is the version listed for professional experience in the CV.
 
-## Live demo
+## Developer Lab
 
-**[Open SkillQuest](https://smiyka.github.io/skillquest/)**
+Each example follows **goal → hands-on steps → result → explanation**. Visitors can follow the sequence or choose a topic from the example list.
 
-The site is deployed automatically to GitHub Pages after every push to `main`, once tests and the build pass.
+1. **Debug a counter:** choose a replacement for a faulty assignment and run the counter twice. Compare the actual value with the expected result before completing the example.
+2. **Filter a skill catalog:** type a query, observe the reactive results and select RxJS. Empty results explain how to continue.
+3. **Validate a project brief:** try an empty submission, inspect accessible field errors, then correct the demo values. No form data is sent or saved.
 
-## Pages
+Completion is saved locally, without levels or XP. The reset action clears example progress and input. The earlier `#/missions` link redirects to `#/lab`; completion records from the earlier version remain supported.
 
-| Page | Contents |
-| --- | --- |
-| [Home](https://smiyka.github.io/skillquest/) | Introduction and links to the professional CV, arcade and missions |
-| [My CV](https://smiyka.github.io/skillquest/#/cv) | Professional strengths, experience, skills, training, education, certifications and contacts |
-| [Games](https://smiyka.github.io/skillquest/#/games) | Arcade selection |
-| [Bug Blaster](https://smiyka.github.io/skillquest/#/games/bug-blaster) | Timed bug-squashing game |
-| [Bug Tac Toe](https://smiyka.github.io/skillquest/#/games/tic-tac-toe) | Green versus red bugs in tic-tac-toe |
-| [Missions](https://smiyka.github.io/skillquest/#/missions) | Three frontend challenges with persistent XP |
+## Games
 
-The CV page includes a [downloadable CV](https://smiyka.github.io/skillquest/tetiana-melnyk-cv.pdf) containing only the CV page from the supplied document, without the cover letter. **Print CV (PDF)** opens that PDF in a new tab; use the PDF viewer’s print button to print the document.
+### Bug Blaster
 
-Pages use lazy-loaded Angular routes and hash-based URLs so direct links and refresh work on static GitHub Pages hosting. The earlier `#bug-blaster` URL redirects to the dedicated game page.
+A 30-second bug-squashing game with three increasingly fast waves. Click or tap bugs before they escape, build a combo for up to a ×4 multiplier and protect five stability bars. Focus the board and use **1–9**, or Tab and Enter. **P** or **Escape** pauses the game. It also pauses when the tab is hidden or the window loses focus.
+
+The personal best is stored locally. Gameplay works without storage and respects reduced motion preferences.
+
+### Bug Tac Toe
+
+Tic-tac-toe with green **X** bugs and red **O** bugs. Play against the computer or a friend on the same screen. The computer uses minimax. Winning lines are highlighted; match scores last for the current visit. The starting team alternates between rounds. Switching mode resets the match.
+
+Click, tap, use **1–9** with the board focused, or Tab and Enter. X/O markings and accessible labels distinguish teams without relying on color. Pending computer moves are cancelled on reset, mode changes and navigation away.
 
 ## Local development
 
@@ -47,65 +66,25 @@ npm start
 
 Open http://localhost:4200.
 
-## Commands
-
 ```sh
-npm run build
 npm test -- --watch=false
+npm run build
+npm run build -- --base-href /Tetiana_Melnyk_Developer/
 ```
 
-The static build is generated in `dist/skillquest/browser`.
-
-To build with the GitHub Pages base path:
-
-```sh
-npm run build -- --base-href /skillquest/
-```
+The static output is generated in `dist/skillquest/browser` (the existing internal Angular project directory).
 
 ## Deployment
 
-The [CI workflow](.github/workflows/ci.yml) checks every push and pull request and deploys to GitHub Pages only from `main`.
-In the repository settings, **Settings → Pages → Build and deployment → Source** must be set to **GitHub Actions**.
-Track deployment status in the [Actions tab](https://github.com/smiyka/skillquest/actions).
+The [CI workflow](.github/workflows/ci.yml) tests every push and pull request and deploys successful builds from `main` to GitHub Pages. In **Settings → Pages → Build and deployment → Source**, select **GitHub Actions**. Track deployments in the [Actions tab](https://github.com/smiyka/Tetiana_Melnyk_Developer/actions).
 
-## Games & missions
+Pages use lazy-loaded Angular routes and hash URLs so direct links and refresh work on static hosting. The earlier `#bug-blaster` URL redirects to its game page.
 
-### Bug Blaster arcade
+## Implementation
 
-A 30-second bug-squashing game with three increasingly fast waves. Click or tap bugs before they escape, build a combo for up to a ×4 multiplier, and protect five stability bars. Focus the board and press **1–9** to hit matching slots, or use Tab and Enter. Press **P** or **Escape** to pause. The game pauses automatically when the browser tab is hidden or the window loses focus.
+- Standalone Angular components, strict TypeScript, Signals, computed state and SCSS.
+- Reactive Forms with field descriptions, error messages and invalid-state attributes.
+- Route titles, active navigation, focus management and reduced motion support.
+- Tests for lab validation and progression, persistence, game rules, computer strategy, timer cleanup and page separation.
 
-The personal best is stored locally in this browser. Gameplay works without storage and respects reduced motion preferences. The arcade score is separate from mission XP.
-
-### Bug Tac Toe
-
-Tic-tac-toe with green **X** bugs and red **O** bugs. Play against the computer or with a friend on the same screen. The computer uses minimax to choose its moves. Winning rows, columns and diagonals are highlighted; draws and wins are counted for the current visit. The starting team alternates between rounds, while restarting a round keeps its original starter. Switching mode resets the match scores.
-
-Click or tap an empty square, focus the board and press **1–9**, or use Tab and Enter. Tokens include X/O markings and accessible labels so teams can be distinguished without relying on color. Pending computer moves are cancelled when resetting, changing mode or leaving the page.
-
-### Portfolio challenges
-
-| Mission | Experience | Reward |
-| --- | --- | --- |
-| Bug hunt | Fix a TypeScript increment | 100 XP |
-| Skill radar | Filter the catalog and find RxJS | 150 XP |
-| Ready for launch | Complete a form with valid data | 200 XP |
-
-Each reward is granted only once. Progress is saved in localStorage and can be reset with **Start again**. If storage is unavailable, the game continues in memory. Form fields are for demonstration only: no data is sent to a server and no personal data is saved.
-
-## Technical choices
-
-- Standalone Angular components, strict TypeScript and SCSS.
-- Signals and computed values for state, filters, levels and points.
-- A `Progress` service separated from the UI, with validation of persisted data.
-- Reactive Forms with accessible error messages.
-- Responsive layout, keyboard navigation, live feedback and reduced motion support.
-- Tests covering duplicate rewards, corrupt data, validation and mission interactions.
-- GitHub Actions CI running tests and a build on every push and pull request.
-- Lazy-loaded pages, route titles, active navigation and focus management.
-- Tests covering tic-tac-toe wins, draws, computer strategy, reset behavior and page separation.
-
-## Customization
-
-Profile data, skill groups, engagements, learning projects, education and credentials are defined in `src/app/profile.ts`. The CV template lives in `src/app/cv.html`; mission content lives in `src/app/missions.html` and mission rewards are defined in `src/app/progress.ts`. Routes are configured in `src/app/app.routes.ts` and the shared navigation lives in `src/app/app.html`.
-
-The skill radar uses the profile’s skill groups, including technologies from earlier projects and training. Learning projects are listed from the CV; individual repository links can be added when available.
+Profile data is in `src/app/profile.ts`; the CV template is `src/app/cv.html`. Lab content and interactions are in `src/app/developer-lab.*`, with completion storage in `src/app/progress.ts`. Routes are configured in `src/app/app.routes.ts`; shared navigation is in `src/app/app.html`.
