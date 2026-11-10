@@ -108,6 +108,13 @@ input {
 .art-label { font: 9px var(--mono); color: var(--muted); letter-spacing: 1px; text-align: center; }
 .game-art { height: 190px; display: flex; align-items: center; justify-content: center; gap: 28px; background: radial-gradient(ellipse at center, var(--accent-soft), transparent); border-bottom: 1px solid var(--line); margin: -10px -10px 26px; }
 .game-art app-bug-token { width: 90px; height: 90px; }
+.memory-art { gap: 14px; }
+.mini-card { display: grid; place-items: center; width: 62px; height: 88px; border: 1px solid var(--accent-border); border-radius: 12px; background: var(--accent-soft); color: var(--lime); font-size: 27px; transform: rotate(-9deg); }
+.mini-card.face { transform: rotate(5deg) translateY(-6px); background: var(--panel); }
+.mini-card:last-child { transform: rotate(13deg); }
+.mini-card app-bug-token { width: 54px; height: 62px; }
+.merge-art { gap: 9px; }.merge-art app-bug-token { width: 44px; height: 54px; }.merge-art app-bug-token:last-child { width: 78px; height: 94px; }
+.defense-art { gap: 14px; }.mini-tower { display: grid; place-items: center; width: 65px; height: 65px; background: var(--accent-soft); border: 1px solid var(--accent-border); border-radius: 16px; color: var(--lime); font-size: 38px; }.defense-trail { color: var(--accent-border); font: 30px var(--mono); }
 .snake-art { gap: 8px; }
 .snake-art app-bug-token { transform: rotate(-90deg); }
 .snake-preview { color: var(--lime); font-size: 48px; letter-spacing: -8px; margin-left: -18px; }

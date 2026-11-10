@@ -1,0 +1,26 @@
+.defense-board { position: relative; aspect-ratio: 12 / 8; border: 1px solid var(--line); border-radius: 14px; background: var(--inset); overflow: hidden; }
+.map { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.map text { font: 2.4px var(--mono); fill: var(--muted); }
+.build-pad { position: absolute; width: 8.3333%; height: 12.5%; min-height: 0; display: grid; place-items: center; padding: 0; border: 1px dashed var(--accent-border); border-radius: 9px; color: var(--lime); background: var(--panel); font-size: clamp(14px, 2vw, 23px); }
+.build-pad.built { border-style: solid; background: var(--accent-soft); }
+.build-pad.selected { border: 2px solid var(--lime); }
+.build-pad small { position: absolute; right: 2px; bottom: 0; font: 8px var(--mono); }
+.build-pad:focus-visible { outline-offset: 1px; z-index: 2; }
+.enemy { position: absolute; width: 7%; height: 10%; transform: translate(-50%, -50%); pointer-events: none; }
+.enemy app-bug-token { width: 100%; height: 100%; }
+.enemy.slowed { filter: drop-shadow(0 0 3px #75d4ff); }
+.health { position: absolute; bottom: -2px; left: 15%; width: 70%; height: 3px; border-radius: 3px; background: var(--line); overflow: hidden; }
+.health i { display: block; height: 100%; background: var(--lime); }
+.shot { stroke: var(--lime); stroke-width: .45; opacity: .8; }.shot.cold { stroke: #75c8ea; }
+.tower-shop { display: grid; gap: 9px; }
+.tower-shop button { display: flex; align-items: center; gap: 14px; padding: 14px; text-align: left; background: var(--panel); color: var(--text); border: 1px solid var(--line); }
+.tower-shop button[aria-pressed='true'] { background: var(--accent-soft); border-color: var(--accent-border); }
+.tower-icon { font-size: 27px; color: var(--lime); }
+.tower-shop strong { display: block; font-size: 12px; }.tower-shop small { display: block; color: var(--muted); font-size: 11px; line-height: 1.8; margin-top: 5px; }
+.tower-detail { border: 1px solid var(--accent-border); border-radius: 14px; background: var(--accent-soft); padding: 18px; margin-top: 20px; }
+.tower-detail h3 { margin: 10px 0; }.tower-detail p { font-size: 12px; }
+.board-help { font-size: 11px; line-height: 1.8; color: var(--muted); margin-bottom: 0; }
+.pad-controls { display: none; }
+@media(max-width: 600px) { .pad-controls { display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px; margin-top: 12px; }.pad-controls button { padding: 5px; font-size: 9px; }.pad-controls button[aria-pressed='true'] { border-color: var(--lime); color: var(--lime); } }
+@media(max-width: 600px) { .build-pad { border-radius: 6px; }.build-pad small { font-size: 7px; }.game-actions { gap: 6px; }.game-actions button { padding: 10px 12px; font-size: 11px; } }
+@media(prefers-reduced-motion: reduce) { .shot { display: none; } }

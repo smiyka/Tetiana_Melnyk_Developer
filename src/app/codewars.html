@@ -1,0 +1,12 @@
+<section class="codewars-card" aria-labelledby="codewars-title">
+  <div><p class="eyebrow">CONTINUOUS PRACTICE / CODEWARS</p><h2 id="codewars-title">A little practice. Every kata counts.</h2><p>Algorithms, problem solving and a habit of learning.</p>
+    @if (rank() || honor() !== null) { <p class="codewars-summary">@if (rank()) { Rank: {{ rank() }} } @if (honor() !== null) { · Honor: {{ honor() }} points }</p> }
+    @if (languages().length) { <p class="eyebrow">LANGUAGES TRAINED · {{ languages().length }}</p><div class="tech-stack">@for (language of languages(); track language.name) { <span>{{ language.name }} · {{ language.rank }}</span> }</div> }
+    <a class="text-link" href="https://www.codewars.com/users/smiyka" target="_blank" rel="noopener noreferrer">View my Codewars profile ↗</a>
+  </div>
+  <div class="kata-stat" aria-live="polite" [attr.aria-busy]="loading()">
+    @if (count() !== null) { <strong>{{ count() }}</strong><span>kata completed</span> } @else { <strong>—</strong><span>{{ loading() ? 'Loading completed kata…' : 'Count unavailable' }}</span> }
+    <small>{{ failed() ? 'Codewars is unavailable. Any displayed count is from the last successful refresh.' : updated() ? 'Live from Codewars · refreshed every minute' : 'Reading the latest Codewars data' }}</small>
+    <button type="button" (click)="refresh()" [disabled]="loading()">{{ loading() ? 'Updating…' : 'Refresh ↻' }}</button>
+  </div>
+</section>

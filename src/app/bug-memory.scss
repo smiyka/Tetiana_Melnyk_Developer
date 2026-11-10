@@ -1,0 +1,13 @@
+.memory-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+.memory-grid.expert { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+.memory-grid.paused { visibility: hidden; }
+.memory-card { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; aspect-ratio: .86; padding: 8px; border: 1px solid var(--accent-border); border-radius: 14px; background: repeating-linear-gradient(135deg, transparent 0 10px, var(--accent-soft) 10px 11px), var(--inset); color: var(--lime); transition: transform 150ms, background 150ms, border-color 150ms; }
+.memory-card:hover:not(.revealed) { transform: translateY(-3px); border-color: var(--lime); }
+.memory-card.revealed { background: var(--panel); border-color: var(--lime); }
+.memory-card.matched { background: var(--accent-soft); border-color: var(--accent-border); }
+.memory-card app-bug-token { width: 74%; height: 70%; }
+.card-back { font: 32px var(--mono); display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.card-back small { font: 7px var(--mono); letter-spacing: 1.5px; }
+.bug-name { font: 9px var(--mono); margin-top: 4px; color: var(--text); }
+@media(max-width: 600px) { .memory-grid, .memory-grid.expert { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 7px; }.memory-card { padding: 5px; border-radius: 10px; }.card-back { font-size: 25px; gap: 6px; }.card-back small { font-size: 6px; letter-spacing: .5px; }.bug-name { font-size: 8px; } }
+@media(prefers-reduced-motion: reduce) { .memory-card { transition: none; }.memory-card:hover:not(.revealed) { transform: none; } }

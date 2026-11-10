@@ -16,6 +16,7 @@ describe('Page navigation', () => {
     fixture.detectChanges();
     const root = fixture.nativeElement as HTMLElement;
     expect(root.querySelector('h1')?.textContent).toContain('Tetiana Melnyk');
+    expect(root.querySelector('.cv-page')?.lastElementChild?.tagName).toBe('APP-CODEWARS');
     expect(root.querySelector('a[download]')?.getAttribute('href')).toBe('tetiana-melnyk-cv.pdf');
     const printLink = root.querySelector<HTMLAnchorElement>('.cv-print-link');
     expect(printLink?.getAttribute('href')).toBe('tetiana-melnyk-cv.pdf');
@@ -49,6 +50,18 @@ describe('Page navigation', () => {
     expect(router.url).toBe('/lab');
     expect(fixture.nativeElement.querySelector('h1')?.textContent).toContain('See how I build');
     expect(fixture.nativeElement.querySelector('nav a[aria-current="page"]')?.textContent).toBe('Developer Lab');
+  });
+
+  it('lists six games and opens the three new games as separate pages', async () => {
+    const fixture = TestBed.createComponent(App), router = TestBed.inject(Router);
+    fixture.detectChanges();
+    await router.navigateByUrl('/games'); await fixture.whenStable(); fixture.detectChanges();
+    expect(fixture.nativeElement.querySelectorAll('.game-destination')).toHaveLength(6);
+    for (const [path, selector, count] of [['bug-memory', '.memory-card', 16], ['bug-merge', '.merge-cell', 16], ['bug-defense', '.build-pad', 10]] as const) {
+      await router.navigateByUrl(`/games/${path}`); await fixture.whenStable(); fixture.detectChanges();
+      expect(fixture.nativeElement.querySelectorAll(selector)).toHaveLength(count);
+      expect(fixture.nativeElement.querySelector('app-cv')).toBeNull();
+    }
   });
 });
 

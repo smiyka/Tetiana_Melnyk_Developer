@@ -43,6 +43,18 @@ Completion is saved locally, without levels or XP. The reset action clears examp
 
 ## Games
 
+### Bug Memory
+
+Match bug twins by their symbols and names, with 6, 8 or 12 pairs. Flip cards by click, tap, or Tab and Enter. The timer starts with the first card; mismatches briefly remain visible and block further flips. Pause covers the board and freezes both the clock and pending flips. Changing tabs also pauses. Each difficulty saves its fastest time locally, breaking ties by fewer moves.
+
+### Bug Merge
+
+A 2048 puzzle with evolving bug characters. Arrow keys or WASD while the board is focused, swipes, and direction buttons slide the garden. Equal neighbors merge once per turn; a valid move adds a new 2 or 4. Discover the 2048 bug and continue beyond it, or restart when no moves remain. The highest score is saved locally.
+
+### Bug Tower Defense
+
+Defend a fixed garden path over eight waves. Select a Sprayer, Sniper or Chiller and place it on a build pad. Towers fire automatically; upgrades increase damage, range and firing speed. Chillers slow enemies. Kills and cleared waves earn coins; escaping bugs cost lives. Select an existing tower to view its range, upgrade or sell it. Touch screens also have larger pad buttons. Battles pause on tab changes and losing focus. The highest cleared wave is saved locally.
+
 ### Bug Snake
 
 Grow a bug by eating pink flowers. Each snack adds a segment; hitting a wall or the body ends the run. The garden is 20 × 20 cells, with a steady pace and no countdown. Length, survival time and a locally saved best length appear above the board.
@@ -88,7 +100,7 @@ Pages use lazy-loaded Angular routes and hash URLs so direct links and refresh w
 
 ## Implementation
 
-The CV includes a live Codewars card for [smiyka](https://www.codewars.com/users/smiyka). It requests `codeChallenges.totalCompleted` from the public Codewars API on opening, every minute while visible, and on manual refresh. Loading and service failures have explicit states; no kata count is hardcoded. Requests time out after eight seconds and are cancelled when leaving the CV.
+The CV ends with a live Codewars card for [smiyka](https://www.codewars.com/users/smiyka). It requests completed kata, overall rank, Honor points and trained languages with their ranks from the public Codewars API on opening, every minute while visible, and on manual refresh. Completed kata and Honor points are separate metrics. Loading and service failures have explicit states; no profile statistics are hardcoded. Requests time out after eight seconds and are cancelled when leaving the CV.
 
 - Standalone Angular components, strict TypeScript, Signals, computed state and SCSS.
 - Reactive Forms with field descriptions, error messages and invalid-state attributes.

@@ -1,0 +1,10 @@
+.merge-board { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; padding: 10px; border: 1px solid var(--line); border-radius: 16px; background: var(--inset); touch-action: none; user-select: none; }
+.merge-cell { display: flex; flex-direction: column; justify-content: center; align-items: center; aspect-ratio: .86; min-width: 0; background: var(--panel); border-radius: 11px; border: 1px solid var(--line); }
+.merge-cell.filled { border-color: color-mix(in srgb, var(--tile-color) 60%, var(--line)); background: color-mix(in srgb, var(--tile-color) 12%, var(--panel)); }
+.merge-cell app-bug-token { height: 55%; max-width: 80%; }
+.merge-cell strong { font: 700 clamp(14px, 2vw, 24px) var(--mono); }
+.merge-cell small { font: 8px var(--mono); color: var(--muted); margin-top: 4px; }
+.merge-controls { display: grid; grid-template-columns: repeat(3, 52px); gap: 6px; }
+.merge-controls button { font-size: 22px; touch-action: manipulation; }
+.up { grid-column: 2; }.left { grid-column: 1; grid-row: 2; }.down { grid-column: 2; grid-row: 2; }.right { grid-column: 3; grid-row: 2; }
+@media(max-width: 600px) { .merge-board { gap: 7px; padding: 7px; }.merge-cell { border-radius: 8px; }.merge-cell small { font-size: 7px; } }

@@ -1,0 +1,20 @@
+<div class="arcade-page"><a class="back-link" routerLink="/games">← All games</a>
+  <header class="heading"><p class="eyebrow">THE ARCADE / A LITTLE BRAIN TRAINING</p><h1>Two of a bug.<br /><span>One good memory.</span></h1><p>Flip, remember, reunite. A garden full of familiar faces, hiding in plain sight.</p></header>
+  <div class="arcade-layout"><section class="cabinet" aria-label="Bug Memory game">
+    <div class="mode-switch" role="group" aria-label="Difficulty">@for (level of levels; track level.pairs) { <button [attr.aria-pressed]="pairs() === level.pairs" (click)="newGame(level.pairs)">{{ level.label }}</button> }</div>
+    <div class="hud"><div><span>PAIRS FOUND</span><strong>{{ matched().length }} / {{ pairs() }}</strong></div><div><span>MOVES</span><strong>{{ moves() }}</strong></div><div><span>TIME</span><strong>{{ clock() }}</strong></div></div>
+    <div class="board-wrap"><div class="memory-grid" [class.expert]="pairs() === 12" [class.paused]="phase() === 'paused'" [attr.inert]="phase() === 'paused' ? '' : null" aria-label="Memory cards">
+      @for (card of cards(); track card.id) {
+        <button class="memory-card" [class.revealed]="revealed(card)" [class.matched]="matched().includes(card.bug)" [attr.aria-pressed]="revealed(card)" [attr.aria-disabled]="revealed(card) || opened().length === 2" [attr.aria-label]="'Card ' + ($index + 1) + (revealed(card) ? ': ' + bugs[card.bug].name + ' bug' + (matched().includes(card.bug) ? ', matched' : ', face up') : ', face down')" (click)="flip(card.id)">
+          @if (revealed(card)) { <app-bug-token [symbol]="bugs[card.bug].symbol" [style.--bug-color]="bugs[card.bug].color" /><span class="bug-name">{{ bugs[card.bug].name }} @if (matched().includes(card.bug)) { <span aria-hidden="true">✓</span> }</span> }
+          @else { <span class="card-back" aria-hidden="true">✦<small>BUG CLUB</small></span> }
+        </button>
+      }
+    </div>@if (phase() === 'paused') { <div class="overlay"><h2>A little bug nap.</h2><button class="primary" (click)="togglePause()">Resume game →</button></div> }</div>
+    <p class="status" role="status" aria-live="polite">{{ message() }}</p>
+    <div class="game-actions"><button class="primary" (click)="newGame()">{{ phase() === 'won' ? 'Play again ↗' : 'New game ↻' }}</button><button class="secondary" [disabled]="phase() !== 'playing' && phase() !== 'paused'" (click)="togglePause()">{{ phase() === 'paused' ? 'Resume' : 'Pause' }}</button></div>
+  </section><aside class="guide"><p class="eyebrow">MEET YOUR MATCH</p><h2>Same little face.<br />Different hiding place.</h2><p>Every bug has a twin. Match them by their symbol and name, with a different color for a little extra help.</p><ol><li><strong>Turn two cards.</strong><span>Click, tap or use Tab and Enter to reveal a pair.</span></li><li><strong>Make a connection.</strong><span>Matching bugs stay face up. Different bugs hide again after a moment.</span></li><li><strong>Find your rhythm.</strong><span>Clear the garden in fewer moves and less time. Each difficulty has its own fastest-time record.</span></li></ol>
+    @if (best(); as record) { <div class="record">BEST ON THIS DEVICE<br />{{ record.seconds }} seconds · {{ record.moves }} moves<br />{{ pairs() }} pairs</div> } @else { <div class="record">Your first finished game sets the record.</div> }
+    <div class="controls"><p>Changing difficulty starts a fresh game. The timer begins with your first card. Changing tabs pauses and covers the board.</p></div>
+  </aside></div>
+</div>

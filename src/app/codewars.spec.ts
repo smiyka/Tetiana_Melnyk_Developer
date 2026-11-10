@@ -15,9 +15,12 @@ describe('Live Codewars statistics', () => {
     const fixture = TestBed.createComponent(Codewars);
     fixture.detectChanges();
     const http = TestBed.inject(HttpTestingController);
-    http.expectOne(url).flush({ codeChallenges: { totalCompleted: 30 } });
+    http.expectOne(url).flush({ codeChallenges: { totalCompleted: 30 }, honor: 165, ranks: { overall: { name: '6 kyu' }, languages: { javascript: { name: '6 kyu' }, rust: { name: '7 kyu' }, typescript: { name: '8 kyu' } } } });
     fixture.detectChanges();
     expect(fixture.nativeElement.querySelector('strong').textContent).toBe('30');
+    expect(fixture.componentInstance.honor()).toBe(165);
+    expect(fixture.componentInstance.rank()).toBe('6 kyu');
+    expect(fixture.componentInstance.languages()).toEqual([{ name: 'JavaScript', rank: '6 kyu' }, { name: 'Rust', rank: '7 kyu' }, { name: 'TypeScript', rank: '8 kyu' }]);
     expect(fixture.nativeElement.querySelector('a').href).toBe('https://www.codewars.com/users/smiyka');
     vi.spyOn(document, 'hidden', 'get').mockReturnValue(false);
     vi.advanceTimersByTime(60000);
