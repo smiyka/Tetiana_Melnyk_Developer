@@ -1,0 +1,81 @@
+<section id="bug-blaster" aria-labelledby="blaster-title" (keydown)="keyboard($event)">
+  <div class="game-heading">
+    <div>
+      <p class="eyebrow">BONUS LEVEL / ARCADE</p>
+      <h2 id="blaster-title">Bug Blaster<span>.</span></h2>
+      <p class="intro">Less debugging. More bug squashing.</p>
+    </div>
+    <span class="record">PERSONAL BEST <strong>{{ best() }}</strong></span>
+  </div>
+  <div class="cabinet">
+    <div class="cabinet-bar"><span><i></i> BUILD_DEFENDER.exe</span><span>30 SECONDS. ZERO MERCY.</span></div>
+    <div class="game-layout">
+      <div class="arena-wrap">
+        <div class="hud" aria-label="Game statistics">
+          <div><span>SCORE</span><strong>{{ score() }}</strong></div>
+          <div><span>TIME</span><strong [class.danger]="seconds() <= 10">{{ seconds() }}<small>s</small></strong></div>
+          <div><span>COMBO</span><strong>×{{ multiplier() }}</strong></div>
+          <div><span>STABILITY</span><strong class="stability" [attr.aria-label]="health() + ' out of 5'">
+            @for (life of [1, 2, 3, 4, 5]; track life) { <i [class.lost]="health() < life"></i> }
+          </strong></div>
+        </div>
+        <div #board class="arena" tabindex="0" aria-label="Bug Blaster game board" aria-describedby="game-controls">
+          <div class="target-grid" [class.inactive]="phase() !== 'playing'">
+            @for (slot of slots; track slot) {
+              <button class="target" type="button" (click)="hit(slot)" [disabled]="phase() !== 'playing'"
+                [class.occupied]="bugAt(slot)" [attr.aria-label]="(bugAt(slot) ? 'Squash ' + bugAt(slot)!.name : 'Empty slot') + ', key ' + (slot + 1)">
+                <span class="slot-key" aria-hidden="true">0{{ slot + 1 }}</span>
+                @for (bug of bugs(); track bug.slot) {
+                  @if (bug.slot === slot) {
+                    <span class="bug-target">
+                      <svg class="bug" viewBox="0 0 64 64" aria-hidden="true">
+                        <path class="legs" d="m21 24-9-7m9 16H8m13 9-9 7m31-25 9-7m-9 16h13m-13 9 9 7M26 14l-4-7m16 7 4-7" />
+                        <path class="body" d="M20 29c0-8 5-15 12-15s12 7 12 15v10c0 10-5 17-12 17s-12-7-12-17z" />
+                        <path class="shell" d="M32 28v27M21 29h22" />
+                        <path class="eyes" d="M27 22h1m8 0h1" />
+                      </svg>
+                      <span class="bug-name">{{ bug.name }}</span>
+                      <span class="fuse"><span [style.width.%]="100 * (bug.expires - elapsed()) / (bug.expires - bug.born)"></span></span>
+                    </span>
+                  }
+                }
+                @if (blast()?.slot === slot) { <span class="blast">✦<small>+{{ blast()?.points }}</small></span> }
+              </button>
+            }
+          </div>
+          @if (phase() !== 'playing') {
+            <div class="overlay">
+              <span class="overlay-icon" aria-hidden="true">{{ phase() === 'over' ? (health() ? '✓' : '!') : '&lt;/&gt;' }}</span>
+              <p class="eyebrow">{{ phase() === 'ready' ? 'YOUR BUILD IS UNDER ATTACK' : phase() === 'paused' ? 'TAKE A BREATHER' : 'ROUND COMPLETE' }}</p>
+              <h3>{{ phase() === 'ready' ? 'Squash the bugs.' : phase() === 'paused' ? 'Game paused.' : health() ? 'Build saved!' : 'Build crashed.' }}</h3>
+              <p>{{ phase() === 'ready' ? 'Tap the bugs before they escape. Keep your build alive for 30 seconds.' : phase() === 'paused' ? 'The timer is stopped. Resume when you’re ready.' : kills() + ' bugs squashed · ' + score() + ' points' }}</p>
+              @if (phase() === 'paused') {
+                <button type="button" class="action" (click)="togglePause()">Resume game ↗</button>
+              } @else {
+                <button type="button" class="action" (click)="start()">{{ phase() === 'over' ? 'Play again ↺' : 'Start blasting ↗' }}</button>
+              }
+            </div>
+          }
+        </div>
+        <div class="arena-footer"><span>WAVE 0{{ wave() }} / 03</span>
+          @if (phase() === 'playing' || phase() === 'paused') {
+            <button type="button" (click)="togglePause()">{{ phase() === 'paused' ? 'Resume ▷' : 'Pause Ⅱ' }}</button>
+          } @else { <span>LOCAL ARCADE · NO LOGIN</span> }
+        </div>
+      </div>
+      <aside class="field-guide" aria-label="How to play">
+        <p class="eyebrow">MISSION BRIEF</p>
+        <h3>Protect the build.</h3>
+        <p>The bugs are real.<br />Well, almost.</p>
+        <ol>
+          <li><strong>Spot it. Squash it.</strong><span>Click or tap a bug before its timer runs out.</span></li>
+          <li><strong>Get into the flow.</strong><span>Every 5 hits in a row boosts your multiplier, up to ×4. Empty taps reset the combo.</span></li>
+          <li><strong>Keep it stable.</strong><span>Each escaped bug costs one stability bar. Lose all 5 and the build crashes.</span></li>
+        </ol>
+        <div class="controls" id="game-controls"><span>KEYBOARD MODE</span><p>Focus the board and use <kbd>1</kbd>–<kbd>9</kbd> to hit matching slots. Or Tab to a slot and press Enter. <kbd>P</kbd> pauses.</p></div>
+        <p class="small-note">Three waves. Increasing speed. Your best score stays in this browser.</p>
+      </aside>
+    </div>
+    <p class="game-status" role="status" aria-live="polite">{{ message() }}</p>
+  </div>
+</section>

@@ -55,6 +55,14 @@ Track deployment status in the [Actions tab](https://github.com/smiyka/skillques
 
 ## Missions
 
+### Bug Blaster arcade
+
+A 30-second bug-squashing game with three increasingly fast waves. Click or tap bugs before they escape, build a combo for up to a ×4 multiplier, and protect five stability bars. Focus the board and press **1–9** to hit matching slots, or use Tab and Enter. Press **P** or **Escape** to pause. The game pauses automatically when the browser tab is hidden or the window loses focus.
+
+The personal best is stored locally in this browser. Gameplay works without storage and respects reduced motion preferences. The arcade score is separate from mission XP.
+
+### Portfolio challenges
+
 | Mission | Experience | Reward |
 | --- | --- | --- |
 | Bug hunt | Fix a TypeScript increment | 100 XP |

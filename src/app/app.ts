@@ -2,10 +2,11 @@ import { Component, computed, inject, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MISSIONS, MissionId, Progress } from './progress';
 import { PROFILE } from './profile';
+import { BugGame } from './bug-game';
 
 @Component({
   selector: 'app-root',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, BugGame],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
