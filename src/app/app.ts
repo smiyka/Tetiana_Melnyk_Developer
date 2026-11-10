@@ -1,6 +1,7 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MISSIONS, MissionId, Progress } from './progress';
+import { PROFILE } from './profile';
 
 @Component({
   selector: 'app-root',
@@ -9,12 +10,13 @@ import { MISSIONS, MissionId, Progress } from './progress';
   styleUrl: './app.scss',
 })
 export class App {
+  readonly profile = PROFILE;
   readonly progress = inject(Progress);
   readonly missions = MISSIONS;
   readonly active = signal<MissionId>('logic');
   readonly feedback = signal('');
   readonly query = signal('');
-  readonly skills = ['Angular', 'TypeScript', 'Accessibility', 'CSS', 'Testing', 'RxJS'];
+  readonly skills = [...new Set(PROFILE.skillGroups.flatMap((group) => [...group.skills]))];
   readonly filteredSkills = computed(() =>
     this.skills.filter((s) =>
       s.toLocaleLowerCase('en').includes(this.query().trim().toLocaleLowerCase('en')),
