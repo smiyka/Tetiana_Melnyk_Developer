@@ -1,6 +1,6 @@
 import { Component, HostListener, OnDestroy, computed, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { BugToken } from './bug-token';
+import { BugToken } from '../bug-token/bug-token';
 
 export const MEMORY_BUGS = [
   { symbol: '★', name: 'Star', color: '#f4a6cb' }, { symbol: '♥', name: 'Heart', color: '#ff8b9a' },
@@ -18,7 +18,7 @@ export function createMemoryDeck(pairs: number): MemoryCard[] {
 }
 interface MemoryRecord { seconds: number; moves: number }
 
-@Component({ selector: 'app-bug-memory', imports: [RouterLink, BugToken], templateUrl: './bug-memory.html', styleUrls: ['./arcade.scss', './bug-memory.scss'] })
+@Component({ selector: 'app-bug-memory', imports: [RouterLink, BugToken], templateUrl: './bug-memory.html', styleUrls: ['../styles/arcade.scss', './bug-memory.scss'] })
 export class BugMemory implements OnDestroy {
   readonly bugs = MEMORY_BUGS;
   readonly levels = [{ pairs: 6, label: 'Easy · 12 cards' }, { pairs: 8, label: 'Classic · 16 cards' }, { pairs: 12, label: 'Expert · 24 cards' }];

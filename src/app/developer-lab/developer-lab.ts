@@ -1,7 +1,7 @@
 import { Component, ElementRef, computed, inject, signal, viewChild } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ExampleId, LabProgress } from './progress';
-import { PROFILE } from './profile';
+import { ExampleId, LabProgress } from '../services/progress';
+import { PROFILE } from '../data/profile';
 
 type Fix = 'assign' | 'increment' | 'decrement';
 const EXAMPLES = [

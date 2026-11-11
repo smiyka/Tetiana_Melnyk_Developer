@@ -1,6 +1,6 @@
 import { Component, OnDestroy, computed, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { BugToken } from './bug-token';
+import { BugToken } from '../bug-token/bug-token';
 
 export type Player = 'green' | 'red';
 export type Cell = Player | null;

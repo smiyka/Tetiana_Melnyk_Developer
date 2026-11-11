@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { DeveloperLab } from './developer-lab';
-import { LabProgress } from './progress';
+import { LabProgress } from '../services/progress';
 
 describe('Developer Lab', () => {
   beforeEach(() => {

@@ -1,6 +1,6 @@
 import { Component, ElementRef, computed, signal, viewChild } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { BugToken } from './bug-token';
+import { BugToken } from '../bug-token/bug-token';
 
 export type MergeDirection = 'up' | 'down' | 'left' | 'right';
 export function slideBugs(board: readonly number[], direction: MergeDirection) {
@@ -27,7 +27,7 @@ export function addMergeBug(board: readonly number[]): number[] {
   return next;
 }
 
-@Component({ selector: 'app-bug-merge', imports: [RouterLink, BugToken], templateUrl: './bug-merge.html', styleUrls: ['./arcade.scss', './bug-merge.scss'] })
+@Component({ selector: 'app-bug-merge', imports: [RouterLink, BugToken], templateUrl: './bug-merge.html', styleUrls: ['../styles/arcade.scss', './bug-merge.scss'] })
 export class BugMerge {
   readonly boardElement = viewChild<ElementRef<HTMLElement>>('boardElement');
   readonly board = signal(addMergeBug(addMergeBug(Array(16).fill(0))));

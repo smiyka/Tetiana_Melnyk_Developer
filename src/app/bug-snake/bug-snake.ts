@@ -1,6 +1,6 @@
 import { Component, ElementRef, HostListener, OnDestroy, computed, signal, viewChild } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { BugToken } from './bug-token';
+import { BugToken } from '../bug-token/bug-token';
 
 export interface Point { x: number; y: number }
 export type Direction = 'up' | 'down' | 'left' | 'right';

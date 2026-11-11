@@ -1,6 +1,6 @@
 import { Component, HostListener, OnDestroy, computed, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { BugToken } from './bug-token';
+import { BugToken } from '../bug-token/bug-token';
 
 export const DEFENSE_PATH = [
   ...Array.from({ length: 10 }, (_, x) => ({ x, y: 1 })),
@@ -47,7 +47,7 @@ export function defenseStep(enemies: DefenseEnemy[], towers: DefenseTower[], del
   return { enemies: remaining, towers: updated, shots, leaks, kills };
 }
 
-@Component({ selector: 'app-bug-defense', imports: [RouterLink, BugToken], templateUrl: './bug-defense.html', styleUrls: ['./arcade.scss', './bug-defense.scss'] })
+@Component({ selector: 'app-bug-defense', imports: [RouterLink, BugToken], templateUrl: './bug-defense.html', styleUrls: ['../styles/arcade.scss', './bug-defense.scss'] })
 export class BugDefense implements OnDestroy {
   readonly pads = DEFENSE_PADS; readonly types = TOWER_TYPES;
   readonly route = DEFENSE_PATH.map(p => `${(p.x + .5) * 10},${(p.y + .5) * 10}`).join(' ');

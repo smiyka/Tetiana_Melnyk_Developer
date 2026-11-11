@@ -38,7 +38,7 @@ function increment() &#123;
           }
         }
         <p class="feedback" [class.error]="feedbackError()" role="status" aria-live="polite">{{ feedback() }}</p>
-        <details class="explanation" [open]="completed()"><summary>Why this approach works</summary><p>{{ example().why }}</p><a href="https://github.com/smiyka/Tetiana_Melnyk_Developer/blob/main/src/app/developer-lab.ts">Explore the source code ↗</a></details>
+        <details class="explanation" [open]="completed()"><summary>Why this approach works</summary><p>{{ example().why }}</p><a href="https://github.com/smiyka/Tetiana_Melnyk_Developer/blob/main/src/app/developer-lab/developer-lab.ts">Explore the source code ↗</a></details>
       </div>
       <footer class="example-footer"><span>{{ completed() ? 'Example completed ✓' : 'Try the example to mark it complete' }}</span>@if (index() < 2) { <button class="action secondary" type="button" (click)="next()">{{ completed() ? 'Next example →' : 'Skip to next example →' }}</button> } @else if (progress.completed().length === 3) { <strong>All three examples explored. Thank you!</strong> }</footer>
     </section>
